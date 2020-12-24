@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2020/12 on Mike&#39;s Blog</title>
+    <link>http://mike2ykme.github.io/posts/2020/12/</link>
+    <description>Recent content in 2020/12 on Mike&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="http://mike2ykme.github.io/posts/2020/12/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Getting Spring Certified</title>
+      <link>http://mike2ykme.github.io/posts/2020/12/getting-spring-certified/</link>
+      <pubDate>Wed, 23 Dec 2020 20:49:04 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/posts/2020/12/getting-spring-certified/</guid>
+      <description>&lt;p&gt;So I&amp;rsquo;ve finally decided that I&amp;rsquo;m going to get Pivotal&amp;rsquo;s &lt;strong&gt;Spring Certified Professional&lt;/strong&gt; and there&amp;rsquo;s so many and so few resources available at the same time!&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
