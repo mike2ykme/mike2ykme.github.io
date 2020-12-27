@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html><title>Mike&#39;s Blog</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/w3.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"><style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style><body class="w3-light-grey">
+    
+    
+    <div class="w3-content" style="max-width: 1400px">
+<header class="w3-container w3-center w3-padding-8">
+  <h1><b>Mike&#39;s Blog</b></h1>
+  </header><div>
+  <div class="w3-row w3-padding w3-dark-grey">
+    <div class="w3-col s3">
+      <a href="/" class="w3-button w3-block w3-dark-grey">HOME</a>
+    </div>
+    <div class="w3-col s3">
+      <a href="/posts" class="w3-button w3-block w3-dark-grey">Blog</a>
+    </div>
+    <div class="w3-col s3">
+      <a href="/opensource" class="w3-button w3-block w3-dark-grey">open source</a>
+    </div>
+    <div class="w3-col s3">
+      <a href="/about" class="w3-button w3-block w3-dark-grey">About</a>
+    </div>
+  </div>
+</div>
+        <div id="content">
+<article class="post">
+  <header >
+    
+      
+      <div class="w3-row">
+    <div class="w3-col l7 s12">
+        <div class="w3-panel w3-grey w3-center">
+          <h2>Getting Spring Certified 3 | Reviewing the Study guide</h2>
+        </div>
+    </div>
+</div>
+    
+    <p> By: <b>Micheal Arsenault</b> <img class="w3-circle" src="/images/me_cropped.jpg" alt="" width="48" height="48"></p><p>Posted: <b>December 26, 2020</b></b></p>
+    <p>
+        
+        
+        Reading Time: <b>
+        
+          7 
+        minutes</b>
+  
+  
+      </p>
+  </header>
+  
+  <section class="body w3-container">
+    
+    <p>resources:</p>
+<ul>
+<li><a href="https://pivotalcontent.s3.amazonaws.com/academy/Spring-Professional-Certification-Study-Guide.pdf">Spring Professional Study guide</a></li>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/">Spring Boot documentation</a></li>
+</ul>
+
+    
+
+    <br/>
+
+    <br/>
+
+    <br/>
+
+<h3 id="what-is-the-preferred-way-to-close-an-application-context--does-spring-boot-do-this-for-you">What is the preferred way to close an application context?  Does Spring Boot do this for you?</h3>
+
+    
+        
+    
+
+    <br/>
+
+<h4 id="non-web-context">NON-WEB CONTEXT</h4>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">import</span> <span class="nn">org.springframework.context.ConfigurableApplicationContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.support.ClassPathXmlApplicationContext</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Boot</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">ConfigurableApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="o">(</span><span class="s">&#34;beans.xml&#34;</span><span class="o">);</span>
+
+        <span class="c1">// add a shutdown hook for the above context...
+</span><span class="c1"></span>        <span class="n">ctx</span><span class="o">.</span><span class="na">registerShutdownHook</span><span class="o">();</span>
+
+        <span class="c1">// app runs here...
+</span><span class="c1"></span>
+        <span class="c1">// main method exits, hook is called prior to the app shutting down...
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-shutdown">Source</a></li>
+</ul>
+
+    
+        
+    
+
+    <br/>
+
+<p>It&rsquo;s important to note here the &lsquo;Boot&rsquo; class here has nothing to do with Spring Boot. This will link the application to the JVM and upon JVM shutdown the ApplicationContext to close.</p>
+<ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/support/AbstractApplicationContext.html#registerShutdownHook--">registerShutdownHook API</a></li>
+</ul>
+
+    
+        
+    
+
+    <br/>
+
+<p>Additionally, there is a close() function that will close the application context and destroy al of it&rsquo;s beans as well. Additionally this will remove a JVM linked shutdown hook if one is registered.</p>
+<ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/support/AbstractApplicationContext.html#close--">close API</a></li>
+</ul>
+<p>If you&rsquo;re using Spring to create a web based application it will link itself with the container in order to shutdown properly; otherwise you&rsquo;ll need to register a shutdown hook yourself.</p>
+
+    
+        
+    
+
+    <br/>
+
+<h4 id="spring-boot-shutdown-hook">Spring-Boot shutdown Hook</h4>
+<p>Spring boot&rsquo;s <a href="https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/SpringApplication.html">SpringApplication</a> itself registers a shutdown hook with the JVM. There&rsquo;s also the capability for an application to create a bean that implements the <a href="https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot/src/main/java/org/springframework/boot/ExitCodeGenerators.java">ExitCodeGenerator Interface</a>. In the below example from Spring&rsquo;s Boot documentation you can see</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExitCodeApplication</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">ExitCodeGenerator</span> <span class="nf">exitCodeGenerator</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">42</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="n">SpringApplication</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">ExitCodeApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">)));</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><ul>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-application-exit">Source</a></li>
+</ul>
+
+    
+        
+    
+
+    <br/>
+
+<h4 id="web-hooks">WEB Hooks</h4>
+
+    
+        
+    
+
+    <br/>
+
+<p>Spring integrates the ApplicationContext lifecycle with the web application itself so no manual steps are needed for the web application context.
+
+    
+        
+    
+
+    <br/>
+</p>
+
+  
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <p class="w3-large w3-serif" style="margin-top: -40px">
+    This section applies only to non-web applications. Spring’s web-based ApplicationContext implementations already have code in place to gracefully shut down the Spring IoC container when the relevant web application is shut down.
+  </p>
+  <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-shutdown" style="text-decoration: none">
+    <p>Spring Core Documentation <img src="/icons/link.svg" alt="link icon"></p>
+  </a>
+</div>
+
+
+    
+
+    <br/>
+
+    <br/>
+
+    <br/>
+
+<h3 id="next-part-of-the-study-guide-has-multiple-sections">Next part of the study guide has multiple sections:</h3>
+<h4 id="can-you-describe">Can you describe:</h4>
+<pre><code>* Dependency injection using Java configuration?
+* Dependency injection using annotations (@Autowired)?
+* Component scanning, Stereotypes?–Scopes for Spring beans? 
+* What is the default scope?
+</code></pre>
+
+    
+        
+    
+
+    <br/>
+
+<p>I want to take a second and mention how I don&rsquo;t like the question above. It mentions using &ldquo;Java configuration&rdquo; and then mentions &ldquo;using annotations&rdquo;; this to me is a bit confusing as annotations are Java code. Regardless, I keep this in my head as thinking of the distinction of using Java class(es) as a central place to create Spring beans. I also will be splitting up some of the above questions based upon how large these posts become.</p>
+
+    
+        
+    
+
+    <br/>
+
+<h4 id="dependency-injection-using-java-configuration">Dependency injection using Java configuration?</h4>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Java configuration would look like below. You can see that we&rsquo;re explicitly instantiating the beans inside of the methods.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="nd">@Configuration</span>
+<span class="nd">@PropertySource</span><span class="o">(</span><span class="s">&#34;classpath:application.properties&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">PropertySourcesPlaceholderConfigurer</span>
+    <span class="nf">propertySourcesPlaceholderConfigurer</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">PropertySourcesPlaceholderConfigurer</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="nd">@Bean</span>
+    <span class="nd">@Profile</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">)</span>
+    <span class="n">UserRepo</span> <span class="nf">userRepoTest</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">HashMapUserRepo</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="nd">@Profile</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">)</span>
+    <span class="n">Greeter</span> <span class="nf">greeterTest</span><span class="o">(</span><span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${greeting.test}&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">greeting</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">GreeterImpl</span><span class="o">(</span><span class="n">greeting</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="nd">@Profile</span><span class="o">(</span><span class="s">&#34;prod&#34;</span><span class="o">)</span>
+    <span class="n">Greeter</span> <span class="nf">greeterProd</span><span class="o">(</span><span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${greeting.prod}&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">greeting</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">GreeterImpl</span><span class="o">(</span><span class="n">greeting</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="nd">@Profile</span><span class="o">(</span><span class="s">&#34;prod&#34;</span><span class="o">)</span>
+    <span class="n">UserRepo</span> <span class="nf">prodRepo</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">HashMapUserRepo</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+    
+        
+    
+
+    <br/>
+
+<p>While the above code is calling methods like normal, it&rsquo;s important to understand that by using the @Configuration annotation you&rsquo;re explicitly telling Spring to intercept method calls using Spring&rsquo;s AOP methods. This means beans are still created in a prototype like fashion regardless of the actual usage of the method being called. So if you call any method you&rsquo;ll only really be given the same object each time. Additionally, if you don&rsquo;t use the @Configuration annotation on a class then you&rsquo;ll have different effects when creating @Bean methods especially on intr-bean calls.</p>
+
+    
+        
+    
+
+    <br/>
+
+<p>
+
+
+
+
+    
+
+
+    
+
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <div class="w3-large w3-serif" style="margin-top: -40px">
+
+<!--  -->
+<div class="content">
+<div class="title">Full @Configuration vs “lite” @Bean mode?</div>
+<div class="paragraph">
+<p>When <code>@Bean</code> methods are declared within classes that are not annotated with
+<code>@Configuration</code>, they are referred to as being processed in a “lite” mode. Bean methods
+declared in a <code>@Component</code> or even in a plain old class are considered to be “lite”,
+with a different primary purpose of the containing class and a <code>@Bean</code> method
+being a sort of bonus there. For example, service components may expose management views
+to the container through an additional <code>@Bean</code> method on each applicable component class.
+In such scenarios, <code>@Bean</code> methods are a general-purpose factory method mechanism.</p>
+</div>
+<div class="paragraph">
+<p>Unlike full <code>@Configuration</code>, lite <code>@Bean</code> methods cannot declare inter-bean dependencies.
+Instead, they operate on their containing component’s internal state and, optionally, on
+arguments that they may declare. Such a <code>@Bean</code> method should therefore not invoke other
+<code>@Bean</code> methods. Each such method is literally only a factory method for a particular
+bean reference, without any special runtime semantics. The positive side-effect here is
+that no CGLIB subclassing has to be applied at runtime, so there are no limitations in
+terms of class design (that is, the containing class may be <code>final</code> and so forth).</p>
+</div>
+<div class="paragraph">
+<p>In common scenarios, <code>@Bean</code> methods are to be declared within <code>@Configuration</code> classes,
+ensuring that “full” mode is always used and that cross-method references therefore
+get redirected to the container’s lifecycle management. This prevents the same
+<code>@Bean</code> method from accidentally being invoked through a regular Java call, which helps
+to reduce subtle bugs that can be hard to track down when operating in “lite” mode.</p>
+</div>
+</div>
+
+<!--  -->
+
+  </div>
+  <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-java-basic-concepts" style="text-decoration: none">
+    <p>Spring Core Documentation: Full @Configuration vs “lite” @Bean mode? <img src="/icons/link.svg" alt="link icon"></p>
+  </a>
+</div>
+
+
+
+
+    
+        
+    
+
+    <br/>
+</p>
+<p>I&rsquo;ve also included the below example from the documentation where they have a simple configuration class:</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java">
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">BeanOne</span> <span class="nf">beanOne</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">BeanOne</span><span class="o">(</span><span class="n">beanTwo</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">BeanTwo</span> <span class="nf">beanTwo</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">BeanTwo</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-java-configuration-annotation">Source: 1.12.4. Using the @Configuration annotation</a></li>
+</ul>
+
+    
+        
+    
+
+    <br/>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; It&rsquo;s also important to think of Java annotation like XML configuration when it comes to integrating multiple disparate sources into a unified area. This means that you can have one Java configuration that will pull in XML files, as well as other @Configuration annotated classes</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServiceConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">TransferService</span> <span class="nf">transferService</span><span class="o">(</span><span class="n">AccountRepository</span> <span class="n">accountRepository</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">TransferServiceImpl</span><span class="o">(</span><span class="n">accountRepository</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RepositoryConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">AccountRepository</span> <span class="nf">accountRepository</span><span class="o">(</span><span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">JdbcAccountRepository</span><span class="o">(</span><span class="n">dataSource</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@Import</span><span class="o">({</span><span class="n">ServiceConfig</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">RepositoryConfig</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SystemTestConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">DataSource</span> <span class="nf">dataSource</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// return new DataSource
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">ApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="o">(</span><span class="n">SystemTestConfig</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="c1">// everything wires up across configuration classes...
+</span><span class="c1"></span>    <span class="n">TransferService</span> <span class="n">transferService</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="n">TransferService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">transferService</span><span class="o">.</span><span class="na">transfer</span><span class="o">(</span><span class="n">100</span><span class="o">.</span><span class="na">00</span><span class="o">,</span> <span class="s">&#34;A123&#34;</span><span class="o">,</span> <span class="s">&#34;C456&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-java-injecting-imported-beans">Injecting Dependencies on Imported @Bean Definitions</a></li>
+<li>You can see here that we&rsquo;re pulling in configuration metadata from other classes, but this could just as easily have been XML documents</li>
+<li>Really one of the major points to understand, is that with this you&rsquo;re able to create a central repository where you instantiate and setup objects to be used throughout your application.</li>
+</ul>
+
+    
+        
+    
+
+    <br/>
+
+<p>Alright, this has gone on long enough and I&rsquo;ll begin wit this next:  <em>Dependency injection using annotations (@Autowired)</em></p>
+
+    
+  </section>
+</article>
+
+</div>
+      
+    </div>
+<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top w3-center">
+  <p>Copyright 2020 Micheal Arsenault</p>
+</footer>
+</body>
+</html>
