@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html><title>Mike&#39;s Blog</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/w3.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"><style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style><body class="w3-light-grey">
+    
+    
+    <div class="w3-content" style="max-width: 1400px">
+<header class="w3-container w3-center w3-padding-8">
+  <h1><b>Mike&#39;s Blog</b></h1>
+  </header><div>
+  <div class="w3-row w3-padding w3-dark-grey">
+    <div class="w3-col s3">
+      <a href="/" class="w3-button w3-block w3-dark-grey">HOME</a>
+    </div>
+    <div class="w3-col s3">
+      <a href="/posts" class="w3-button w3-block w3-dark-grey">Blog</a>
+    </div>
+    <div class="w3-col s3">
+      <a href="/opensource" class="w3-button w3-block w3-dark-grey">open source</a>
+    </div>
+    <div class="w3-col s3">
+      <a href="/about" class="w3-button w3-block w3-dark-grey">About</a>
+    </div>
+  </div>
+</div>
+        <div id="content">
+<article class="post">
+  <header >
+    
+      
+      <div class="w3-row">
+    <div class="w3-col l7 s12">
+        <div class="w3-panel w3-grey w3-center">
+          <h2>Spring Certification: Container, Dependency and IOC | Reviewing the Study Guide</h2>
+        </div>
+    </div>
+</div>
+    
+    <p> By: <b>Micheal Arsenault</b> <img class="w3-circle" src="/images/me_cropped.jpg" alt="" width="48" height="48"></p><p>Posted: <b>December 24, 2020</b>| Modified: <b>December 26, 2020</b></p>
+    <p>
+        
+        
+        Reading Time: <b>
+        
+          7 
+        minutes</b>
+  
+  
+      </p>
+  </header>
+  
+  <section class="body w3-container">
+    
+    <p>resources:</p>
+<ul>
+<li>
+<p><a href="https://pivotalcontent.s3.amazonaws.com/academy/Spring-Professional-Certification-Study-Guide.pdf">Spring Professional Study guide</a></p>
+</li>
+<li>
+<p><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#spring-web">Spring Professional Documentation - Web Servlet</a></p>
+<ul>
+<li>Much of the content from Servlet and the react WebFlux cross over, and both of these documents contain references to each other; however, because of some fundamental differences of the underlying architecture there are also considerable differences.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>The first section of the Study Guide is &lsquo;Container, Dependency and IOC&rsquo; and I&rsquo;m going to try and follow with that guided overview of material.</p>
+<h2 id="container-dependency-and-ioc">Container, Dependency and IOC</h2>
+<h4 id="what-is-dependency-injection-and-what-are-the-advantages-of-using-it">What is dependency injection and what are the advantages of using it?</h4>
+<p>To begin, let&rsquo;s look at the ultimate source of human knowledge, Wikipedia!</p>
+
+  
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <p class="w3-large w3-serif" style="margin-top: -40px">
+    In software engineering, dependency injection is a technique in which an object receives other objects that it depends on. These other objects are called dependencies. In the typical &#34;using&#34; relationship the receiving object is called a client and the passed (that is, &#34;injected&#34;) object is called a service.
+  </p><a href="https://en.wikipedia.org/wiki/Dependency_injection" style="text-decoration: none">
+    <p>Wikipedia: Dependency_injection <img src="/icons/link.svg" alt="link icon"></p>
+  </a></div>
+
+<p>Basically here, instead of us calling the &lsquo;new&rsquo; keyword in our code, we tell Spring that we need something and it will give it to us. This has numerous benefits that relate to better OO &amp; SOLID principles:</p>
+<ul>
+<li>Improves:
+<ul>
+<li>Testability because external dependencies can be more easily mocked or stubbed.</li>
+<li>Clarity of the code because it&rsquo;s responsibilities have been narrowed.</li>
+<li>Cohesion of class&rsquo;s interacting with each other as this design promotes coding by contract [Java Interfaces]</li>
+<li>Maintenance as there is a clearer seperation of concerns the code is handling</li>
+</ul>
+</li>
+</ul>
+<hr>
+<hr>
+<hr>
+<h4 id="what-is-an-interface-and-what-are-the-advantages-of-making-use-of-them-in-java">What is an interface and what are the advantages of making use of them in Java?</h4>
+
+  
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <p class="w3-large w3-serif" style="margin-top: -40px">
+    ...objects define their interaction with the outside world through the methods that they expose. Methods form the object&#39;s interface with the outside world;...
+  </p><a href="https://docs.oracle.com/javase/tutorial/java/concepts/interface.html" style="text-decoration: none">
+    <p>Oracle Java Documentation <img src="/icons/link.svg" alt="link icon"></p>
+  </a></div>
+
+<p>A Java interface let&rsquo;s you expose just the functionality you&rsquo;d like to expose to it&rsquo;s users while hiding the more complicated implementation details. This also allows for different implementations to be used as well, preventing a lock-in of one implementation. So why does this matter? Again you can provide easier testing through mocks, as well as provide different levels of functionality by different implementations.</p>
+<hr>
+<hr>
+<hr>
+<h4 id="what-is-an-applicationcontext">What is an ApplicationContext?</h4>
+
+
+
+
+
+    
+
+
+    
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <div class="w3-large w3-serif" style="margin-top: -40px">
+
+
+<div class="block">Central interface to provide configuration for an application.
+This is read-only while the application is running, but may be
+reloaded if the implementation supports this.
+<p>An ApplicationContext provides:
+</p><ul>
+<li>Bean factory methods for accessing application components.
+Inherited from <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/ListableBeanFactory.html"><code>ListableBeanFactory</code></a>.
+</li><li>The ability to load file resources in a generic fashion.
+Inherited from the <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/io/ResourceLoader.html" title="interface in org.springframework.core.io"><code>ResourceLoader</code></a> interface.
+</li><li>The ability to publish events to registered listeners.
+Inherited from the <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ApplicationEventPublisher.html" title="interface in org.springframework.context"><code>ApplicationEventPublisher</code></a> interface.
+</li><li>The ability to resolve messages, supporting internationalization.
+Inherited from the <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html" title="interface in org.springframework.context"><code>MessageSource</code></a> interface.
+</li><li>Inheritance from a parent context. Definitions in a descendant context
+will always take priority. This means, for example, that a single parent
+context can be used by an entire web application, while each servlet has
+its own child context that is independent of that of any other servlet.
+</li></ul>
+<p>In addition to standard <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/BeanFactory.html" title="interface in org.springframework.beans.factory"><code>BeanFactory</code></a>
+lifecycle capabilities, ApplicationContext implementations detect and invoke
+<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ApplicationContextAware.html" title="interface in org.springframework.context"><code>ApplicationContextAware</code></a> beans as well as <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ResourceLoaderAware.html" title="interface in org.springframework.context"><code>ResourceLoaderAware</code></a>,
+<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ApplicationEventPublisherAware.html" title="interface in org.springframework.context"><code>ApplicationEventPublisherAware</code></a> and <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSourceAware.html" title="interface in org.springframework.context"><code>MessageSourceAware</code></a> beans.</p></div>
+</div>
+  <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ApplicationContext.html" style="text-decoration: none">
+    <p>Spring JavaDoc - Application Context <img src="/icons/link.svg" alt="link icon"></p>
+  </a>
+</div>
+
+
+
+<p>OK! So we are finally getting to some Spring specific elements. At it&rsquo;s core Spring is an <strong>Inversion of Control</strong> framework and it handles creating and instantiating the resources needed for your application. Spring will take in your Java as well as configuration metadata, this can be through @annotations that are applied throughout your java codebase, and provide you with fully instantiated objects ready to use throughout your application.</p>
+<p>Source: <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-basics">Spring Core Doc</a></p>
+<hr>
+<hr>
+<hr>
+<h4 id="how-are-you-going-to-create-a-new-instance-of-an-applicationcontext">How are you going to create a new instance of an ApplicationContext?</h4>
+<p>In the below example you would provide Spring a set of classes that have Spring configuration metadata and from this you can pull out fully instantiated objects.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">ApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="o">(</span><span class="n">MyServiceImpl</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">Dependency1</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">Dependency2</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">MyService</span> <span class="n">myService</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="n">MyService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">myService</span><span class="o">.</span><span class="na">doStuff</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-java-instantiating-container-constructor">Simple Construction Example</a></p>
+<p>It should also be noted that you can instantiate a container and then provide metadata configuration after initial instantiation:</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">AnnotationConfigApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="o">();</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">AppConfig</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">OtherConfig</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">AdditionalConfig</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="na">refresh</span><span class="o">();</span>
+    <span class="n">MyService</span> <span class="n">myService</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="n">MyService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">myService</span><span class="o">.</span><span class="na">doStuff</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-java-instantiating-container-register">Source</a></p>
+<p>This also ignores the creating of any Servlet Application Context containers!</p>
+<p><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-container-config">Servlet Configuration</a></p>
+<p>With Spring you can use the <a href="https://docs.spring.io/spring-framework/docs/5.0.3.RELEASE/spring-framework-reference/core.html#beans-java-instantiating-container-web"><em>web.xml</em> configuration</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;web-app&gt;</span>
+
+    <span class="nt">&lt;listener&gt;</span>
+        <span class="nt">&lt;listener-class&gt;</span>org.springframework.web.context.ContextLoaderListener<span class="nt">&lt;/listener-class&gt;</span>
+    <span class="nt">&lt;/listener&gt;</span>
+
+    <span class="nt">&lt;context-param&gt;</span>
+        <span class="nt">&lt;param-name&gt;</span>contextConfigLocation<span class="nt">&lt;/param-name&gt;</span>
+        <span class="nt">&lt;param-value&gt;</span>/WEB-INF/app-context.xml<span class="nt">&lt;/param-value&gt;</span>
+    <span class="nt">&lt;/context-param&gt;</span>
+
+    <span class="nt">&lt;servlet&gt;</span>
+        <span class="nt">&lt;servlet-name&gt;</span>app<span class="nt">&lt;/servlet-name&gt;</span>
+        <span class="nt">&lt;servlet-class&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="nt">&lt;/servlet-class&gt;</span>
+        <span class="nt">&lt;init-param&gt;</span>
+            <span class="nt">&lt;param-name&gt;</span>contextConfigLocation<span class="nt">&lt;/param-name&gt;</span>
+            <span class="nt">&lt;param-value&gt;&lt;/param-value&gt;</span>
+        <span class="nt">&lt;/init-param&gt;</span>
+        <span class="nt">&lt;load-on-startup&gt;</span>1<span class="nt">&lt;/load-on-startup&gt;</span>
+    <span class="nt">&lt;/servlet&gt;</span>
+
+    <span class="nt">&lt;servlet-mapping&gt;</span>
+        <span class="nt">&lt;servlet-name&gt;</span>app<span class="nt">&lt;/servlet-name&gt;</span>
+        <span class="nt">&lt;url-pattern&gt;</span>/app/*<span class="nt">&lt;/url-pattern&gt;</span>
+    <span class="nt">&lt;/servlet-mapping&gt;</span>
+
+<span class="nt">&lt;/web-app&gt;</span>
+
+</code></pre></div><p>or the newer <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-servlet">3.0+ Servlet configuration</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyWebAppInitializer</span> <span class="kd">extends</span> <span class="n">AbstractAnnotationConfigDispatcherServletInitializer</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">Class</span><span class="o">&lt;?&gt;[]</span> <span class="n">getRootConfigClasses</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Class</span><span class="o">&lt;?&gt;[]</span> <span class="o">{</span> <span class="n">RootConfig</span><span class="o">.</span><span class="na">class</span> <span class="o">};</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">Class</span><span class="o">&lt;?&gt;[]</span> <span class="n">getServletConfigClasses</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Class</span><span class="o">&lt;?&gt;[]</span> <span class="o">{</span> <span class="n">App1Config</span><span class="o">.</span><span class="na">class</span> <span class="o">};</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">String</span><span class="o">[]</span> <span class="nf">getServletMappings</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]</span> <span class="o">{</span> <span class="s">&#34;/app1/*&#34;</span> <span class="o">};</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>Also, while I&rsquo;ve note mentioned any of the actual configuration metadata process, you have the option to have a package be scanned for Java classes that can be used; however, it&rsquo;s important to note this is <em>NOT A ZERO COST</em> operation as scanning through large code bases will take time every time the application starts. Therefore, you should use scanning appropriately on code that would be picked up at least in a majority sense, and provide scoping or ignore rules to prevent unnecessary work.</p>
+<hr>
+<hr>
+<hr>
+<h4 id="can-you-describe-the-lifecycle-of-a-spring-bean-in-an-applicationcontext">Can you describe the lifecycle of a Spring Bean in an ApplicationContext?</h4>
+<p>Alright, this is a large and slightly tricky question, but it&rsquo;s only tricky because there&rsquo;s a lot of little steps that a bean will take in order to be fully prepared.</p>
+<p>On a way zoomed back view, you can think of a bean being created like this:
+1. Spring Container reviews configuration metadata and creates bean &lsquo;recipes&rsquo; that will be instantiated later.
+2. Spring processes additional configuration metadata that will affect how beans are created and additional capabilities, thereby altering the &lsquo;recipe&rsquo; for beans.
+3. Spring creates the beans providing resources of already created beans in order to fulfill dependencies.
+4. Spring provides the ready made beans to be used
+5. SHUTDOWN hooks inside the container object trigger shutdown operations that cascade custom</p>
+<p>Now this is a way oversimplification of the process that actually occurs. I really recommend reviewing the actual documentation as there&rsquo;s quite a few steps involved, and each step has a lot of detail.<a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-definition">Spring core - beans-definition</a></p>
+<hr>
+<hr>
+<p>You should also be aware of the differences in making changes to bean instances after they&rsquo;re created and modifying the bean metadata <em>&lsquo;recipe&rsquo;</em>
+
+
+
+
+
+    
+
+
+    
+
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <div class="w3-large w3-serif" style="margin-top: -40px">
+
+  
+    <div class="admonitionblock note">
+    <table>
+    <tbody><tr>
+    <td class="icon">
+    <i class="fa icon-note" title="Note"></i>
+    </td>
+    <td class="content">
+    <div class="paragraph">
+    <p><code>BeanPostProcessor</code> instances operate on bean (or object) instances. That is,
+    the Spring IoC container instantiates a bean instance and then <code>BeanPostProcessor</code>
+    instances do their work.</p>
+    </div>
+    <div class="paragraph">
+    <p><code>BeanPostProcessor</code> instances are scoped per-container. This is relevant only if you
+    use container hierarchies. If you define a <code>BeanPostProcessor</code> in one container,
+    it post-processes only the beans in that container. In other words, beans that are
+    defined in one container are not post-processed by a <code>BeanPostProcessor</code> defined in
+    another container, even if both containers are part of the same hierarchy.</p>
+    </div>
+    <div class="paragraph">
+    <p>To change the actual bean definition (that is, the blueprint that defines the bean),
+    you instead need to use a <code>BeanFactoryPostProcessor</code>, as described in
+    <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-extension-factory-postprocessors">Customizing Configuration Metadata with a <code>BeanFactoryPostProcessor</code></a>.</p>
+    </div>
+    </td>
+    </tr>
+    </tbody></table>
+    </div>
+
+</div>
+  <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-extension-bpp" style="text-decoration: none">
+    <p>Bean Factory (i) info section<img src="/icons/link.svg" alt="link icon"></p>
+  </a>
+</div>
+
+</p>
+<hr>
+<hr>
+<p>While this step is a very fundamental building block of the bean instantiation process, in a general sense it&rsquo;s hidden from you in most cases except through interacting with either definition</p>
+<p><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-lifecycle">https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-lifecycle</a></p>
+<p><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-extension-bpp">https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-extension-bpp</a></p>
+<hr>
+<hr>
+<p>Here are some additional resources to review on this as it&rsquo;s a rather spread out topic in the framework documentation:</p>
+<ul>
+<li>
+<p><a href="https://docs.spring.io/spring-framework/docs/5.0.3.RELEASE/spring-framework-reference/core.html#beans-factory-lifecycle">https://docs.spring.io/spring-framework/docs/5.0.3.RELEASE/spring-framework-reference/core.html#beans-factory-lifecycle</a></p>
+</li>
+<li>
+<p><a href="https://docs.spring.io/spring-framework/docs/5.0.3.RELEASE/spring-framework-reference/core.html#beans-postconstruct-and-predestroy-annotations">https://docs.spring.io/spring-framework/docs/5.0.3.RELEASE/spring-framework-reference/core.html#beans-postconstruct-and-predestroy-annotations</a></p>
+</li>
+<li>
+<p><a href="https://docs.spring.io/spring-framework/docs/5.0.3.RELEASE/spring-framework-reference/core.html#context-load-time-weaver">https://docs.spring.io/spring-framework/docs/5.0.3.RELEASE/spring-framework-reference/core.html#context-load-time-weaver</a></p>
+</li>
+<li>
+<p><a href="https://dzone.com/articles/spring-bean-lifecycle">dZone article</a> &ndash;  this article has a good picture of what the process looks like.</p>
+</li>
+</ul>
+
+    
+  </section>
+</article>
+
+</div>
+      
+    </div>
+<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top w3-center">
+  <p>Copyright 2020 Micheal Arsenault</p>
+</footer>
+</body>
+</html>

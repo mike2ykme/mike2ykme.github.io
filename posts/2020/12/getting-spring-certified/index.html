@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html><title>Mike&#39;s Blog</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/w3.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"><style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style><body class="w3-light-grey">
+    
+    
+    <div class="w3-content" style="max-width: 1400px">
+<header class="w3-container w3-center w3-padding-8">
+  <h1><b>Mike&#39;s Blog</b></h1>
+  </header><div>
+  <div class="w3-row w3-padding w3-dark-grey">
+    <div class="w3-col s3">
+      <a href="/" class="w3-button w3-block w3-dark-grey">HOME</a>
+    </div>
+    <div class="w3-col s3">
+      <a href="/posts" class="w3-button w3-block w3-dark-grey">Blog</a>
+    </div>
+    <div class="w3-col s3">
+      <a href="/opensource" class="w3-button w3-block w3-dark-grey">open source</a>
+    </div>
+    <div class="w3-col s3">
+      <a href="/about" class="w3-button w3-block w3-dark-grey">About</a>
+    </div>
+  </div>
+</div>
+        <div id="content">
+<article class="post">
+  <header >
+    
+      
+      <div class="w3-row">
+    <div class="w3-col l7 s12">
+        <div class="w3-panel w3-grey w3-center">
+          <h2>Getting Spring Certified | Getting Started</h2>
+        </div>
+    </div>
+</div>
+    
+    <p> By: <b>Micheal Arsenault</b> <img class="w3-circle" src="/images/me_cropped.jpg" alt="" width="48" height="48"></p><p>Posted: <b>December 23, 2020</b></b></p>
+    <p>
+        
+        
+        Reading Time: <b>
+        <span style="font-size:smaller;">&lt;</span>5
+        minutes</b>
+  
+  
+      </p>
+  </header>
+  
+  <section class="body w3-container">
+    
+    <p>So I&rsquo;ve finally decided that I&rsquo;m going to get Pivotal&rsquo;s <strong>Spring Certified Professional</strong> and there&rsquo;s so many and so few resources available at the same time!</p>
+<p>In the past, when I was reviewing certification material,there always seemed to be specific books aimed at helping you pass the certification that were suggested by the course itself or were highly recommended by the community, and with the Spring certification I&rsquo;ve found this to not be the case. Pivotal recommends that you take the multi-day course where you are led by an instructor who will review all course material expected to be on the exam. If you have both the money and the time then this could be a very good option as you&rsquo;ll be receiving instruction directly from the team that built out the product.</p>
+<p>Regardless of the option you&rsquo;re going to choose, I&rsquo;ve chosen to go the <em>self taught</em> route; which means that I&rsquo;m going to scrounge the internet and look at study guides and hope that I know enough to pass!</p>
+<p>Also, this is a test on the Spring framework and not simply the <em>boot</em> section, boot is included so you&rsquo;ll need to understand it as well, so you must make sure that you&rsquo;re reading material covering the actual framework configuration and not something that depends upon a lot of auto-configuration to get you up and running. This may seem like a small matter, but if you&rsquo;re like me and tried to find resources on YouTube and Pluralsight you&rsquo;re going to find a lot of the information available refers to <em>Spring Boot</em> and this is not idea. On one hand this is just a lot of configuration that&rsquo;s being automated away so you can better understand the core concepts; yet after reviewing a lot of the material you&rsquo;re going to find a lot of &ldquo;HOW!&rdquo; and &ldquo;WHAT!&rdquo; moments where things will work in boot differently and only upon further inspection you&rsquo;ll see that Spring&rsquo;s team has gone ahead and given you the best default configuration that you should use. Now I&rsquo;m not complaining here! This is a great feature, and if you&rsquo;re setting up a DB connection to a production database you really should have a connection pool setup from the beginning, but when you&rsquo;re trying to figure out what&rsquo;s happening it&rsquo;s a lot of indirection to review.</p>
+<p>So what am I going to study and use for resources? I&rsquo;m glad you asked because it&rsquo;s kind of a weird situation right now. Spring has updated their framework to 5.x and we&rsquo;ve got quite a few under the hood improvements and changes, but the general API has stayed the same in a lot of areas as well. This is great news for people who&rsquo;ve worked with Spring for a long time because it means that you&rsquo;ll still be able to use a lot of the information that you&rsquo;ve been using. There&rsquo;s still support for XML annotation, but the cert doesn&rsquo;t cover it so you&rsquo;ll need to be ready for the new Java configuration. This means that I&rsquo;ve actually found a lot of good content in some older material, especially the Spring in Action 4th edition book (There&rsquo;s the 5th edition but it&rsquo;s really about Spring Boot and won&rsquo;t help you as much, just get the older version as it&rsquo;s way more useful to find out what is needed in a general sense).</p>
+<p>OK enough rambling about the exam here&rsquo;s a list of what I&rsquo;m using to review and prepare</p>
+<p>Starting with the official resources:</p>
+<ol>
+<li>
+<p><a href="https://pivotalcontent.s3.amazonaws.com/academy/Spring-Professional-Certification-Study-Guide.pdf">Spring Professional Study guide</a></p>
+</li>
+<li>
+<p><a href="https://pivotalcontent.s3.amazonaws.com/training/exam-briefs/Pivotal_ExamBrief_SpringProfessional.pdf">Spring Professional Exam Brief</a></p>
+</li>
+<li>
+<p>Ivan Kriszan&rsquo;s excellent Spring Certification review book <a href="https://www.kobo.com/en/en/ebook/core-spring-5-certification-in-detail">Core Spring 5 Certification in Detail</a></p>
+<ul>
+<li>Seriously this is a good book that has a lot of the answers for each of the review sections.</li>
+</ul>
+</li>
+<li>
+<p><a href="https://www.amazon.com/Spring-Action-Covers-4/dp/161729120X/ref=sr_1_3?dchild=1&amp;keywords=spring+in+action+4th&amp;qid=1608781824&amp;sr=8-3">Spring in Action 4th Edition</a></p>
+<ul>
+<li>This has a lot of great material to review about setting up and using the features</li>
+</ul>
+</li>
+<li>
+<p><a href="https://www.amazon.com/Pivotal-Certified-Professional-Spring-Developer/dp/1484251350/ref=sr_1_2?dchild=1&amp;keywords=Spring+Professional&amp;qid=1608778624&amp;sr=8-2">Pivotal Certified Professional Core Spring 5 Developer Exam: A Study Guide Using Spring Framework 5 2nd ed. Edition</a></p>
+<ul>
+<li>This is really the only &ldquo;STUDY GUIDE&rdquo; book that I could find for the exam and I&rsquo;ve found the content to be pretty good.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<hr>
+<p>Ideally you would be able to get all of these resources provided to you by your workplace or through a subscription service, except for Ivan&rsquo;s excellent resource I think this is only available through Kobo now, I&rsquo;ve found most of the resources through O&rsquo;Reilly&rsquo;s subscription service. I&rsquo;ve attached the Amazon links but I&rsquo;m not an affiliate so please feel free to buy these in person or online somewhere else. Hey that&rsquo;s 4th edition book is pretty old by now so you can probably snag one up on the cheap from ebay or somewhere else!</p>
+    
+  </section>
+</article>
+
+</div>
+      
+    </div>
+<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top w3-center">
+  <p>Copyright 2020 Micheal Arsenault</p>
+</footer>
+</body>
+</html>
