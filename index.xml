@@ -8,6 +8,15 @@
     <language>en-us</language>
     <lastBuildDate>Mon, 21 Dec 2020 15:05:09 -0600</lastBuildDate><atom:link href="http://mike2ykme.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Java Concurrency in Practice: Reading through the book</title>
+      <link>http://mike2ykme.github.io/posts/2020/12/java-concurrency-in-practice-reading-through-the-book/</link>
+      <pubDate>Sun, 27 Dec 2020 17:10:41 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/posts/2020/12/java-concurrency-in-practice-reading-through-the-book/</guid>
+      <description>This book, though written during the Java 5 time frame and released in 2006, is a must read for anyone looking to master multi-threading on the JVM environment. Even today, it&amp;rsquo;s recommended on forums and websites as a book that will help you to understand proper Java threading techniques.</description>
+    </item>
+    
+    <item>
       <title>Getting Spring Certified 3</title>
       <link>http://mike2ykme.github.io/posts/2020/12/getting-spring-certified-3/</link>
       <pubDate>Sat, 26 Dec 2020 14:16:17 -0600</pubDate>

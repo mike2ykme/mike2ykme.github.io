@@ -4,17 +4,52 @@
   
   <url>
     <loc>http://mike2ykme.github.io/posts/2020/</loc>
-    <lastmod>2020-12-26T21:55:15-06:00</lastmod>
+    <lastmod>2020-12-27T22:32:01-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://mike2ykme.github.io/tags/book/</loc>
+    <lastmod>2020-12-27T22:32:01-06:00</lastmod>
   </url>
   
   <url>
     <loc>http://mike2ykme.github.io/categories/career/</loc>
-    <lastmod>2020-12-26T21:55:15-06:00</lastmod>
+    <lastmod>2020-12-27T22:32:01-06:00</lastmod>
   </url>
   
   <url>
     <loc>http://mike2ykme.github.io/categories/</loc>
-    <lastmod>2020-12-26T21:55:15-06:00</lastmod>
+    <lastmod>2020-12-27T22:32:01-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://mike2ykme.github.io/tags/concurrency/</loc>
+    <lastmod>2020-12-27T22:32:01-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://mike2ykme.github.io/tags/java/</loc>
+    <lastmod>2020-12-27T22:32:01-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://mike2ykme.github.io/posts/2020/12/java-concurrency-in-practice-reading-through-the-book/</loc>
+    <lastmod>2020-12-27T22:32:01-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://mike2ykme.github.io/posts/</loc>
+    <lastmod>2020-12-27T22:32:01-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://mike2ykme.github.io/tags/</loc>
+    <lastmod>2020-12-27T22:32:01-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://mike2ykme.github.io/year/</loc>
+    <lastmod>2020-12-27T22:32:01-06:00</lastmod>
   </url>
   
   <url>
@@ -28,27 +63,7 @@
   </url>
   
   <url>
-    <loc>http://mike2ykme.github.io/tags/java/</loc>
-    <lastmod>2020-12-26T21:55:15-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://mike2ykme.github.io/posts/</loc>
-    <lastmod>2020-12-26T21:55:15-06:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://mike2ykme.github.io/tags/spring/</loc>
-    <lastmod>2020-12-26T21:55:15-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://mike2ykme.github.io/tags/</loc>
-    <lastmod>2020-12-26T21:55:15-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://mike2ykme.github.io/year/</loc>
     <lastmod>2020-12-26T21:55:15-06:00</lastmod>
   </url>
   

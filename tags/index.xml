@@ -6,22 +6,40 @@
     <description>Recent content in Tags on Mike&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 26 Dec 2020 14:16:17 -0600</lastBuildDate><atom:link href="http://mike2ykme.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Dec 2020 17:10:41 -0600</lastBuildDate><atom:link href="http://mike2ykme.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>certification</title>
-      <link>http://mike2ykme.github.io/tags/certification/</link>
-      <pubDate>Sat, 26 Dec 2020 14:16:17 -0600</pubDate>
+      <title>book</title>
+      <link>http://mike2ykme.github.io/tags/book/</link>
+      <pubDate>Sun, 27 Dec 2020 17:10:41 -0600</pubDate>
       
-      <guid>http://mike2ykme.github.io/tags/certification/</guid>
+      <guid>http://mike2ykme.github.io/tags/book/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>concurrency</title>
+      <link>http://mike2ykme.github.io/tags/concurrency/</link>
+      <pubDate>Sun, 27 Dec 2020 17:10:41 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/tags/concurrency/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Java</title>
       <link>http://mike2ykme.github.io/tags/java/</link>
-      <pubDate>Sat, 26 Dec 2020 14:16:17 -0600</pubDate>
+      <pubDate>Sun, 27 Dec 2020 17:10:41 -0600</pubDate>
       
       <guid>http://mike2ykme.github.io/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>certification</title>
+      <link>http://mike2ykme.github.io/tags/certification/</link>
+      <pubDate>Sat, 26 Dec 2020 14:16:17 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/tags/certification/</guid>
       <description></description>
     </item>
     
