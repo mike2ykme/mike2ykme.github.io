@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mike&#39;s Blogolio on Mike&#39;s Blog</title>
+    <link>http://mike2ykme.github.io/</link>
+    <description>Recent content in Mike&#39;s Blogolio on Mike&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 21 Dec 2020 15:05:09 -0600</lastBuildDate><atom:link href="http://mike2ykme.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java Concurrency in Practice: Reading through the book</title>
+      <link>http://mike2ykme.github.io/posts/2020/12/java-concurrency-in-practice-reading-through-the-book/</link>
+      <pubDate>Sun, 27 Dec 2020 17:10:41 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/posts/2020/12/java-concurrency-in-practice-reading-through-the-book/</guid>
+      <description>This book, though written during the Java 5 time frame and released in 2006, is a must read for anyone looking to master multi-threading on the JVM environment. Even today, it&amp;rsquo;s recommended on forums and websites as a book that will help you to understand proper Java threading techniques.</description>
+    </item>
+    
+    <item>
+      <title>Getting Spring Certified 3</title>
+      <link>http://mike2ykme.github.io/posts/2020/12/getting-spring-certified-3/</link>
+      <pubDate>Sat, 26 Dec 2020 14:16:17 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/posts/2020/12/getting-spring-certified-3/</guid>
+      <description>let&amp;rsquo;s continue with the basics of the Spring Container</description>
+    </item>
+    
+    <item>
+      <title>Spring Certification: Container, Dependency and IOC 2</title>
+      <link>http://mike2ykme.github.io/posts/2020/12/spring-certification-container-dependency-and-ioc-2/</link>
+      <pubDate>Fri, 25 Dec 2020 22:11:27 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/posts/2020/12/spring-certification-container-dependency-and-ioc-2/</guid>
+      <description>let&amp;rsquo;s continue with the basics of the Spring Container</description>
+    </item>
+    
+    <item>
+      <title>Spring Certification: Container, Dependency and IOC</title>
+      <link>http://mike2ykme.github.io/posts/2020/12/spring-certification-container-dependency-and-ioc/</link>
+      <pubDate>Thu, 24 Dec 2020 15:54:48 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/posts/2020/12/spring-certification-container-dependency-and-ioc/</guid>
+      <description>let&amp;rsquo;s start with the basics of the Spring Container</description>
+    </item>
+    
+    <item>
+      <title>Getting Spring Certified</title>
+      <link>http://mike2ykme.github.io/posts/2020/12/getting-spring-certified/</link>
+      <pubDate>Wed, 23 Dec 2020 20:49:04 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/posts/2020/12/getting-spring-certified/</guid>
+      <description>&lt;p&gt;So I&amp;rsquo;ve finally decided that I&amp;rsquo;m going to get Pivotal&amp;rsquo;s &lt;strong&gt;Spring Certified Professional&lt;/strong&gt; and there&amp;rsquo;s so many and so few resources available at the same time!&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Opensource</title>
+      <link>http://mike2ykme.github.io/opensource/</link>
+      <pubDate>Mon, 21 Dec 2020 21:36:30 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/opensource/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>About Me</title>
+      <link>http://mike2ykme.github.io/about/</link>
+      <pubDate>Mon, 21 Dec 2020 15:11:40 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/about/</guid>
+      <description>Hi! I&amp;rsquo;m Micheal, I&amp;rsquo;m an IT professional and all around computer enthusiast. I hope you&amp;rsquo;ll find what I&amp;rsquo;ve written useful, or at least helpful enough to point you in the right direction. I make no claims this is the highest quality content, but more that it&amp;rsquo;s notes and content based on what I&amp;rsquo;ve experienced as well as worked on.</description>
+    </item>
+    
+  </channel>
+</rss>
