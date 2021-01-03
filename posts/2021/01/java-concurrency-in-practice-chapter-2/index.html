@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html><title>Mike&#39;s Blog</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/w3.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"><style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style><body class="w3-light-grey">
+    
+    
+    <div class="w3-content" style="max-width: 1400px">
+<header class="w3-container w3-center w3-padding-8">
+  <h1><b>Mike&#39;s Blog</b></h1>
+  </header>
+
+<div class="nav-grid-container">
+  <div class="nav-grid-item">
+    <a href="/" class="w3-button wide-block">HOME</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/posts" class="w3-button wide-block">Blog</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/opensource" class="w3-button wide-block">open source</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/about" class="w3-button wide-block">About</a>
+  </div>
+</div>
+        <div id="content">
+<article class="post">
+  <header >
+    
+      
+      <div class="w3-row">
+    <div class="w3-col l7 s12">
+        <div class="w3-panel w3-grey w3-center">
+          <h2>Java Concurrency in Practice: Chapter 2 | Reading through the book</h2>
+        </div>
+    </div>
+</div>
+    
+    <p> By: <b>Micheal Arsenault</b> <img class="w3-circle" src="/images/me_cropped.jpg" alt="" width="48" height="48"></p><p>Posted: <b>January 2, 2021</b></b></p>
+    <p>
+        
+        
+        Reading Time: <b>
+        
+          7 
+        minutes</b>
+  
+  
+      </p>
+  </header>
+  
+  <section class="body w3-container">
+    
+    <p>This chapter is called 
+
+<span style="text-decoration:underline">Thread Safety</span>, and it begins with one of the most helpful comments on ensuring thread safety that has been explained yet, sure it&rsquo;s only the 2nd chapter but I want to highlight its importance:</p>
+
+  
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <p class="w3-large w3-serif" style="margin-top: -40px">
+    Whether an object needs to be thread-safe depends on whether it will be accessed from multiple threads. This is a property of how the object is used in a program, not what it does. Making an object thread-safe requires using synchronization to coordinate access to its mutable state; failing to do so could result in data corruption and other undesirable consequences.
+  </p><p>-Java Concurrency in Practice, page 15.</p></div>
+
+<p>Let&rsquo;s look at this quote to better explain things</p>
+<ul>
+<li>If an object isn&rsquo;t going to be accessed by multiple threads then it doesn&rsquo;t need to be thread safe. While this may seem to be controversial or at least at odds with the chapter, it&rsquo;s important to understand that not all objects are intended to be accessed at the same time or to have shared mutable state. You can think of method level declared local variables. Unless you share these variables outside of the method scope, they&rsquo;ll be private to the method and the thread running it; therefore, if they&rsquo;re not meant to be accessed by multiple threads then there&rsquo;s no reason to make them thread-safe, as the additional overhead won&rsquo;t return any value.</li>
+<li>Thread safety is dependent upon usage of an object NOT on an object&rsquo;s actions. Determining whether an object is thread safe cannot be done simply by looking at what kind of task the object performs, instead you must review the actual usage of the object to determine thread-safety. For example, if you have an unsafe class but when used properly or when used in a locally scoped manner it will not matter that the object isn&rsquo;t thread safe</li>
+<li>Thread safety is directly tide to the MUTABLE STATE of an object, and this reflects all mutable state and not simply one element of mutable state. Any mutable variables inside of an object must as a whole be considered part of the mutable state and having immutable objects used as part of a mutable state does not make the state thread safe. Immutable, or stateless, objects are themselves are considered thread-safe in isolation; but using multiple thread-safe objects together, in a mutable fashion, form a single state. Access to the combined state variables must be coordinated or there is no guarantee on the outcome of events because there are no guarantees on accessing and updating arrangements of the individual state elements.</li>
+</ul>
+<p>Finally, let&rsquo;s look at a working definition for a thread-safe class:</p>
+
+  
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <p class="w3-large w3-serif" style="margin-top: -40px">
+    A class is thread-safe if it behaves correctly when accessed from multiple threads, regardless of the scheduling or interleaving of the execution of those threads by the runtime environment, and with no additional synchronization or other coordination on the part of the calling code.
+  </p><p>-Java Concurrency in Practice, page 15.</p></div>
+
+<p>With this definition, we can continue into our understanding of creating a proper thread-safe class.</p>
+<p><em>I think it&rsquo;s important to note that we&rsquo;re talking about thread safe classes in a code sense, but safety of a class is related to state and therefore access to state is what we have to manage.</em></p>
+<p>With section 2.2 
+
+<span style="text-decoration:underline"> Atomicity </span> it&rsquo;s all about handling state and how using multiple state variables affects the design. The book has an example that is initially stateless (&amp; therefore thread-safe) and introduces state into it. It&rsquo;s through this example that we see some important design and usage techniques. As is the name of the chapter, atomicity is an important point when it comes to protecting state variables. When there are multiple state variables that need to be coordinated, access to any of the must be done in an atomic operation. You cannot think of reading data as an exception either, as reading a variable must be done atomically as any change to state that&rsquo;s not done atomically in respect to reads can lead to data races. So if you need to update or change an object&rsquo;s state based on another part of the object&rsquo;s state then you must do both operations as a single unit of work, or as an atomic operation.</p>
+<ul>
+<li><strong>Atomic operations are operations who are completed as one step, this can be a compound action with multiple actions occurring as one unit.</strong></li>
+<li>Operations similar to <em>check-then-act</em> or <em>read-modify-write</em> need to be treated as an atomic operation because their results are dependent upon the current state of an object.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClassA</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">lastNum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">cache</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">factorNumber</span><span class="o">(</span><span class="kt">int</span> <span class="n">factor</span><span class="o">){</span>
+        <span class="kd">synchronized</span><span class="o">(</span><span class="k">this</span><span class="o">){</span>      <span class="c1">// Inside of a synchronized block we validate state variables
+</span><span class="c1"></span>            <span class="k">if</span><span class="o">(</span><span class="n">factor</span> <span class="o">==</span> <span class="n">lastNum</span><span class="o">){</span>  <span class="c1">// We perform a check-then-act
+</span><span class="c1"></span>                <span class="k">return</span> <span class="n">cache</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="c1">// If we don&#39;t have the number cached, then we go outside of the method to perform a calculation so we don&#39;t block other threads.
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">expensiveOperation</span><span class="o">(</span><span class="n">factor</span><span class="o">);</span>
+        <span class="kd">synchronized</span><span class="o">(</span><span class="k">this</span><span class="o">){</span>         <span class="c1">// Inside this block we update our state variables
+</span><span class="c1"></span>            <span class="n">lastNum</span> <span class="o">=</span> <span class="n">factor</span><span class="o">;</span>
+            <span class="n">cache</span> <span class="o">=</span> <span class="n">result</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><em>as a side note, I&rsquo;ve personally found Rust&rsquo;s <a href="https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html">ownership</a> model to be a great way of thinking about concurrency and ensuring no data races.</em></p>
+<p>Now that the book has mentioned we need to perform multiple operations in a single step how are we supposed to do this? That&rsquo;s what 
+
+<span style="text-decoration:underline"> Locking </span> is for.</p>
+<ul>
+<li>Java&rsquo;s intrinsic locking, locking built into the languages, is the <strong>synchronized</strong> keyword and it can be used on any object. When used on non-static methods uses the implicit (this) object.
+<ul>
+<li><strong>This is a reentrant style lock</strong>, this means if a thread already owns the lock then it can enter/re-enter other code blocks or methods that are guarded by that lock. Upon completely leaving these <em>synchronized</em> blocks, the lock will be removed and other threads can access the lock.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Widget</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">(){</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoggingWidget</span> <span class="kd">extends</span> <span class="nf">Widget</span><span class="o">(){</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">toString</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;: calling doSomething&#34;</span><span class="o">);</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">doSomething</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><ul>
+<li>Listing 2.7. Code that would deadlock if intrinsic locks were not reentrant</li>
+<li>Source: page 27.</li>
+</ul>
+<p>The above is using the synchronized keyword, and since it does not list anything to lock on it uses the implicit this of the object. So any method that is protected with the &lsquo;synchronized&rsquo; keyword will use the object&rsquo;s own object as the lock; however, this is a default and you can lock on a different object.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyClass</span><span class="o">{</span>
+    <span class="n">String</span> <span class="n">myString</span> <span class="o">=</span> <span class="s">&#34;ABC&#34;</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">(){</span>
+        <span class="n">sychronized</span><span class="o">(</span><span class="n">myString</span><span class="o">){</span> <span class="c1">// locking on another state reference variable
+</span><span class="c1"></span>            <span class="o">...</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyOtherClass</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomethingElse</span><span class="o">(){</span>
+        <span class="kd">synchronized</span><span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// explicit use of the &#39;this&#39; object to lock on
+</span><span class="c1"></span>            <span class="o">...</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>The last of the locking chapters discusses the basics of efficient locking.
+
+  
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <p class="w3-large w3-serif" style="margin-top: -40px">
+    Avoid holding locks during lengthy computations or operations at risk of not completing quickly such as netowrk or console I/O.
+  </p><p>-Java Concurrency in Practice, page 32.</p></div>
+</p>
+<ul>
+<li>Locks allow only one thread at a time to be active in a section of code.
+<ul>
+<li>Page 30 has a good illustration of this</li>
+</ul>
+</li>
+<li>There is a performance overhead to the <em>synchronized</em> keyword so locking should be grouped together when possible.</li>
+<li>Threads should spend as little time inside of a synchronization block as possible. This means expensive operations should be placed outside of synchronization blocks to limit the time each thread waits for access.</li>
+</ul>
+
+    
+  </section>
+</article>
+
+</div>
+      
+    </div>
+<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top w3-center">
+  <p>Copyright 2021 Micheal Arsenault</p>
+</footer>
+</body>
+</html>

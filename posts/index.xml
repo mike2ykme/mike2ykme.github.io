@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Mike&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 27 Dec 2020 17:10:41 -0600</lastBuildDate><atom:link href="http://mike2ykme.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 02 Jan 2021 23:09:52 -0600</lastBuildDate><atom:link href="http://mike2ykme.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java Concurrency in Practice: Chapter 2</title>
+      <link>http://mike2ykme.github.io/posts/2021/01/java-concurrency-in-practice-chapter-2/</link>
+      <pubDate>Sat, 02 Jan 2021 23:09:52 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/posts/2021/01/java-concurrency-in-practice-chapter-2/</guid>
+      <description>Continuing to read through the book &amp;lsquo;Java Concurrency in Practice&amp;rsquo;</description>
+    </item>
+    
     <item>
       <title>Java Concurrency in Practice: Reading through the book</title>
       <link>http://mike2ykme.github.io/posts/2020/12/java-concurrency-in-practice-reading-through-the-book/</link>
