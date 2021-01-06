@@ -37,12 +37,12 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       <div class="w3-row">
     <div class="w3-col l7 s12">
         <div class="w3-panel w3-grey w3-center">
-          <h2>Java Concurrency in Practice: Chapter 2 | Reading through the book</h2>
+          <h2>Java Concurrency in Practice 2 | Reading through the book, chapter 2</h2>
         </div>
     </div>
 </div>
     
-    <p> By: <b>Micheal Arsenault</b> <img class="w3-circle" src="/images/me_cropped.jpg" alt="" width="48" height="48"></p><p>Posted: <b>January 2, 2021</b></b></p>
+    <p> By: <b>Micheal Arsenault</b> <img class="w3-circle" src="/images/me_cropped.jpg" alt="" width="48" height="48"></p><p>Posted: <b>December 28, 2020</b>| Modified: <b>January 5, 2021</b></p>
     <p>
       
       
@@ -56,14 +56,6 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     
       <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
         <a href="/tags/java" class="tag" style="text-decoration: none;"> Java</a>
-      </span>
-    
-      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
-        <a href="/tags/concurrency" class="tag" style="text-decoration: none;"> concurrency</a>
-      </span>
-    
-      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
-        <a href="/tags/book" class="tag" style="text-decoration: none;"> book</a>
       </span>
     
     </p>
@@ -170,24 +162,18 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><p>The last of the locking chapters discusses the basics of efficient locking.
-
-  
-<div class="w3-panel w3-leftbar w3-sand">
-  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
-  <p class="w3-large w3-serif" style="margin-top: -40px">
-    Avoid holding locks during lengthy computations or operations at risk of not completing quickly such as netowrk or console I/O.
-  </p><p>-Java Concurrency in Practice, page 32.</p></div>
-</p>
+</code></pre></div><p>The last of the locking chapters discusses the basics of efficient locking.</p>
 <ul>
-<li>Locks allow only one thread at a time to be active in a section of code.
-<ul>
-<li>Page 30 has a good illustration of this</li>
-</ul>
-</li>
+<li>Locks allow only one thread at a time to be active in a section of code.</li>
 <li>There is a performance overhead to the <em>synchronized</em> keyword so locking should be grouped together when possible.</li>
 <li>Threads should spend as little time inside of a synchronization block as possible. This means expensive operations should be placed outside of synchronization blocks to limit the time each thread waits for access.</li>
 </ul>
+<p>The last part of the chapter involves liveliness and performance on a general basis, but we are advised against premature optimization and to always ensure correctness of an application before anything else.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+</blockquote>
 
     
   </section>

@@ -8,11 +8,29 @@
     <language>en-us</language>
     <lastBuildDate>Mon, 21 Dec 2020 15:05:09 -0600</lastBuildDate><atom:link href="http://mike2ykme.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Getting Spring Certified</title>
+      <link>http://mike2ykme.github.io/posts/2021/01/getting-spring-certified/</link>
+      <pubDate>Tue, 05 Jan 2021 21:37:21 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/posts/2021/01/getting-spring-certified/</guid>
+      <description>Continuing reviewing the study guide with dependency injection using annotations</description>
+    </item>
+    
+    <item>
       <title>Java Concurrency in Practice: Chapter 2</title>
       <link>http://mike2ykme.github.io/posts/2021/01/java-concurrency-in-practice-chapter-2/</link>
       <pubDate>Sat, 02 Jan 2021 23:09:52 -0600</pubDate>
       
       <guid>http://mike2ykme.github.io/posts/2021/01/java-concurrency-in-practice-chapter-2/</guid>
+      <description>Continuing to read through the book &amp;lsquo;Java Concurrency in Practice&amp;rsquo;</description>
+    </item>
+    
+    <item>
+      <title>Java Concurrency in Practice 2</title>
+      <link>http://mike2ykme.github.io/posts/2020/12/java-concurrency-in-practice-2/</link>
+      <pubDate>Mon, 28 Dec 2020 10:36:40 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/posts/2020/12/java-concurrency-in-practice-2/</guid>
       <description>Continuing to read through the book &amp;lsquo;Java Concurrency in Practice&amp;rsquo;</description>
     </item>
     

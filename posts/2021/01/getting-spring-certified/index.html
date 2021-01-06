@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html><title>Mike&#39;s Blog</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/w3.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"><style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style><body class="w3-light-grey">
+    
+    
+    <div class="w3-content" style="max-width: 1400px">
+<header class="w3-container w3-center w3-padding-8">
+  <h1><b>Mike&#39;s Blog</b></h1>
+  </header>
+
+<div class="nav-grid-container">
+  <div class="nav-grid-item">
+    <a href="/" class="w3-button wide-block">HOME</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/posts" class="w3-button wide-block">Blog</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/opensource" class="w3-button wide-block">open source</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/about" class="w3-button wide-block">About</a>
+  </div>
+</div>
+        <div id="content">
+<article class="post">
+  <header >
+    
+      
+      <div class="w3-row">
+    <div class="w3-col l7 s12">
+        <div class="w3-panel w3-grey w3-center">
+          <h2>Getting Spring Certified | Continuing with annotation based dependency injection</h2>
+        </div>
+    </div>
+</div>
+    
+    <p> By: <b>Micheal Arsenault</b> <img class="w3-circle" src="/images/me_cropped.jpg" alt="" width="48" height="48"></p><p>Posted: <b>January 5, 2021</b></b></p>
+    <p>
+      
+      
+      Reading Time: <b>
+      
+        6 
+      minutes</b>
+    </p>
+    <p>
+      Tags:
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/certification" class="tag" style="text-decoration: none;"> certification</a>
+      </span>
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/java" class="tag" style="text-decoration: none;"> Java</a>
+      </span>
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/spring" class="tag" style="text-decoration: none;"> Spring</a>
+      </span>
+    
+    </p>
+  </header>
+  
+  <section class="body w3-container">
+    
+    <p>resources:</p>
+<ul>
+<li><a href="https://pivotalcontent.s3.amazonaws.com/academy/Spring-Professional-Certification-Study-Guide.pdf">Spring Professional Study guide</a></li>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html">Spring Core Reference</a>
+<ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-annotation-config">Spring Core Reference - annotation config</a></li>
+</ul>
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; While in Java based configuration you would still retain a distinct area for bean creation, or at least a distinct area where to define where beans are created, annotation based configuration uses metadata placed on the classes themselves to tell Spring the dependencies as well as specialized configuration metadata to tell Spring where the classes are.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; How does Spring know what class we want to have available for autowiring and what class should be ignored? After all, there will be some data classes that we wouldn&rsquo;t just want injected into properties. Also, what happens if we have multiple objects that could satisfy an interface where the usage needs to be determined based on the deployment area?</p>
+<ol>
+<li>Spring makes use of <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Component.html">@Component</a> and it&rsquo;s specializations in order to determine what should be handled by Spring.</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java">
+<span class="nd">@Component</span>  <span class="c1">// Tells Spring to pick up this class as a bean candidate
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyClass</span><span class="o">{</span>
+    <span class="c1">// Just a POJO
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="nf">MyClass</span><span class="o">(</span><span class="n">Dependency</span> <span class="n">dependency</span><span class="o">){</span>
+        <span class="o">...</span>
+        <span class="c1">// Spring will auto use the constructor if there&#39;s only 1
+</span><span class="c1"></span>        <span class="c1">// otherwise, Spring will look for a default constructor
+</span><span class="c1"></span>        <span class="c1">// specified with @Autowired or JSR330 equivalent.
+</span><span class="c1"></span>    <span class="o">}</span> 
+<span class="o">}</span>
+</code></pre></div>
+    
+        
+    
+
+    <br/>
+
+
+  
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <p class="w3-large w3-serif" style="margin-top: -40px">
+    As of Spring Framework 4.3, an @Autowired annotation on such a constructor is no longer necessary if the target bean defines only one constructor to begin with. However, if several constructors are available and there is no primary/default constructor, at least one of the constructors must be annotated with @Autowired in order to instruct the container which one to use. See the discussion on [constructor resolution](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-autowired-annotation-constructor-resolution) for details.
+  </p><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-autowired-annotation" style="text-decoration: none">
+    <p>1.9.2. Using @Autowired <img src="/icons/link.svg" alt="link icon"></p>
+  </a></div>
+
+<p>While this class has the @Component, Spring offers several meta-annotations from the @Component annotation. So you can use them in the places where @Component would be used, but they offer a sort of self documenting annotation to help you understand the use of a class&rsquo;s usage</p>
+<ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Repository.html">@Repository API</a></li>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Service.html">@Service API</a></li>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Controller.html">@Controller API</a></li>
+</ul>
+
+    
+        
+    
+
+    <br/>
+
+<p>Great! Spring can now understand we have a class that needs to be used as a bean candidate, how does Spring find it?</p>
+<p>You just need to tell Spring to look for them,</p>
+<ol>
+<li>
+<p>Using <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/ComponentScan.html">@ComponentScan</a> as a Java annotation</p>
+<ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-java-instantiating-container-scan">Enabling Component Scan</a></li>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-using-the-default-package">Spring Boot default Package</a>
+<ul>
+<li>This is from the Spring boot documentation, but it mentions the dangers of component scanning without restrictions.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="nd">@Configuration</span>
+<span class="nd">@ComponentScan</span><span class="o">(</span><span class="n">basePackages</span><span class="o">=</span><span class="s">&#34;org.example&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyConfiguration</span><span class="o">{</span>
+    <span class="o">...</span> 
+<span class="o">}</span>
+</code></pre></div><ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-scanning-autodetection">Example from Spring documentation</a></li>
+</ul>
+</li>
+<li>
+<p>Spring Boot performs this by default with its <a href="https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/autoconfigure/SpringBootApplication.html">@SpringBootApplication</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.example.myapplication</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+
+<span class="nd">@SpringBootApplication</span> <span class="c1">// same as @Configuration @EnableAutoConfiguration @ComponentScan
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">Application</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>Using XML configuration with <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-scanning-autodetection"><a href="context:component-scan">context:component-scan</a></a></p>
+<ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-annotation-config">XML configuration</a></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-XML" data-lang="XML"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&#34;http://www.springframework.org/schema/beans&#34;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+    <span class="na">xmlns:context=</span><span class="s">&#34;http://www.springframework.org/schema/context&#34;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://www.springframework.org/schema/beans
+</span><span class="s">        https://www.springframework.org/schema/beans/spring-beans.xsd
+</span><span class="s">        http://www.springframework.org/schema/context
+</span><span class="s">        https://www.springframework.org/schema/context/spring-context.xsd&#34;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">&#34;org.example&#34;</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></div><ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-scanning-autodetection">Example from Spring documentation</a></li>
+</ul>
+</li>
+</ol>
+<p>
+    
+        
+    
+
+    <br/>
+
+
+  
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <p class="w3-large w3-serif" style="margin-top: -40px">
+    The use of &lt;context:component-scan&gt; implicitly enables the functionality of &lt;context:annotation-config&gt;. There is usually no need to include the &lt;context:annotation-config&gt; element when using &lt;context:component-scan&gt;.
+  </p><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-scanning-autodetection" style="text-decoration: none">
+    <p>beans-scanning-autodetection <img src="/icons/link.svg" alt="link icon"></p>
+  </a></div>
+</p>
+
+    
+        
+    
+
+    <br/>
+
+<p>It is important to understand that even with component scanning, there is still functionality to ensure only select elements are discovered and Spring provides the ability to customize how your class finds configuration metadata via component scanning:</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="nd">@Configuration</span>
+<span class="nd">@ComponentScan</span><span class="o">(</span><span class="n">basePackages</span> <span class="o">=</span> <span class="s">&#34;org.example&#34;</span><span class="o">,</span>
+        <span class="n">includeFilters</span> <span class="o">=</span> <span class="nd">@Filter</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FilterType</span><span class="o">.</span><span class="na">REGEX</span><span class="o">,</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s">&#34;.*Stub.*Repository&#34;</span><span class="o">),</span>
+        <span class="n">excludeFilters</span> <span class="o">=</span> <span class="nd">@Filter</span><span class="o">(</span><span class="n">Repository</span><span class="o">.</span><span class="na">class</span><span class="o">))</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppConfig</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div><ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-scanning-filters">1.10.4. Using Filters to Customize Scanning</a></li>
+</ul>
+
+    
+        
+    
+
+    <br/>
+
+
+
+
+
+
+    
+
+
+    
+
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <div class="w3-large w3-serif" style="margin-top: -40px">
+
+<table id="beans-scanning-filters-tbl" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. Filter Types</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Filter Type</th>
+<th class="tableblock halign-left valign-top">Example Expression</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">annotation (default)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.example.SomeAnnotation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An annotation to be <em>present</em> or <em>meta-present</em> at the type level in target components.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">assignable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.example.SomeClass</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A class (or interface) that the target components are assignable to (extend or implement).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">aspectj</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.example..*Service+</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An AspectJ type expression to be matched by the target components.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">regex</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org\.example\.Default.*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A regex expression to be matched by the target components' class names.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">custom</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.example.MyTypeFilter</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom implementation of the <code>org.springframework.core.type.TypeFilter</code> interface.</p></td>
+</tr>
+</tbody>
+</table>
+
+<!--  -->
+
+  </div>
+  <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-scanning-filters" style="text-decoration: none">
+    <p>1.10.4. Using Filters to Customize Scanning<img src="/icons/link.svg" alt="link icon"></p>
+  </a>
+</div>
+
+
+
+
+    
+        
+    
+
+    <br/>
+
+<p>A Spring application is not limited to a single type of configuration and you can mix and match them, the configuration can be a collection of elements that best suite the situation. So feel free to use the best tools for the job.</p>
+<p>Now that we&rsquo;ve gone though letting Spring know where to find the beans, let&rsquo;s continue with the next question:</p>
+
+    
+        
+    
+
+    <br/>
+
+<h4 id="scopes-for-spring-beans-what-is-the-default-scope">Scopes for Spring beans? What is the default scope?</h4>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So what is a &lsquo;scope&rsquo;? In this context, a scope is the lifetime of the bean object that is provided. The default bean scope is a singleton and this means there will only be at most one object created by Spring in the ApplicationContext. Spring reads the configuration metadata and creates the appropriate scoped bean; these scoped beans allow for additional functionality because they&rsquo;re proxied objects under the container&rsquo;s control except for the <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-scopes-prototype">Prototype scope</a>, these are just created every time they&rsquo;re requested and not managed by Spring&rsquo;s container.</p>
+<p>When beans are under Spring&rsquo;s control there is the ability for different scopes to be combined when necessary see <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-scopes-sing-prot-interaction">1.5.3. Singleton Beans with Prototype-bean Dependencies</a></p>
+
+    
+        
+    
+
+    <br/>
+
+
+
+
+
+
+    
+
+
+    
+
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <div class="w3-large w3-serif" style="margin-top: -40px">
+
+<!--  -->
+
+<table id="beans-factory-scopes-tbl" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Bean scopes</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Scope</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#beans-factory-scopes-singleton">singleton</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(Default) Scopes a single bean definition to a single object instance for each Spring IoC
+container.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#beans-factory-scopes-prototype">prototype</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scopes a single bean definition to any number of object instances.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#beans-factory-scopes-request">request</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scopes a single bean definition to the lifecycle of a single HTTP request. That is,
+each HTTP request has its own instance of a bean created off the back of a single bean
+definition. Only valid in the context of a web-aware Spring <code>ApplicationContext</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#beans-factory-scopes-session">session</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scopes a single bean definition to the lifecycle of an HTTP <code>Session</code>. Only valid in
+the context of a web-aware Spring <code>ApplicationContext</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#beans-factory-scopes-application">application</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scopes a single bean definition to the lifecycle of a <code>ServletContext</code>. Only valid in
+the context of a web-aware Spring <code>ApplicationContext</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="web.html#websocket-stomp-websocket-scope">websocket</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scopes a single bean definition to the lifecycle of a <code>WebSocket</code>. Only valid in
+the context of a web-aware Spring <code>ApplicationContext</code>.</p></td>
+</tr>
+</tbody>
+</table>
+
+<!--  -->
+
+  </div>
+  <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-scopes" style="text-decoration: none">
+    <p>1.5. Bean Scopes<img src="/icons/link.svg" alt="link icon"></p>
+  </a>
+</div>
+
+
+
+
+    
+  </section>
+</article>
+
+</div>
+      
+    </div>
+<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top w3-center">
+  <p>Copyright 2021 Micheal Arsenault</p>
+</footer>
+</body>
+</html>
