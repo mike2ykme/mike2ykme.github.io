@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html><title>Mike&#39;s Blog</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/w3.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"><style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style><body class="w3-light-grey">
+    
+    
+    <div class="w3-content" style="max-width: 1400px">
+<header class="w3-container w3-center w3-padding-8">
+  <h1><b>Mike&#39;s Blog</b></h1>
+  </header>
+
+<div class="nav-grid-container">
+  <div class="nav-grid-item">
+    <a href="/" class="w3-button wide-block">HOME</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/posts" class="w3-button wide-block">Blog</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/opensource" class="w3-button wide-block">open source</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/about" class="w3-button wide-block">About</a>
+  </div>
+</div>
+        <div id="content">
+<article class="post">
+  <header >
+    
+      
+      <div class="w3-row">
+    <div class="w3-col l7 s12">
+        <div class="w3-panel w3-grey w3-center">
+          <h2>Java Concurrency in Practice Ch3 Part 2 | Sharing Objects: publication</h2>
+        </div>
+    </div>
+</div>
+    
+    <p> By: <b>Micheal Arsenault</b> <img class="w3-circle" src="/images/me_cropped.jpg" alt="" width="48" height="48"></p><p>Posted: <b>January 24, 2021</b></b></p>
+    <p>
+      
+      
+      Reading Time: <b>
+      
+        13 
+      minutes</b>
+    </p>
+    <p>
+      Tags:
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/java" class="tag" style="text-decoration: none;"> Java</a>
+      </span>
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/concurrency" class="tag" style="text-decoration: none;"> concurrency</a>
+      </span>
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/book" class="tag" style="text-decoration: none;"> book</a>
+      </span>
+    
+    </p>
+  </header>
+  
+  <section class="body w3-container">
+    
+    <p>Resources:</p>
+<ul>
+<li><a href="https://docs.oracle.com/javase/specs/jls/se15/html/jls-17.html">Java Language Specification: Java SE15.</a></li>
+<li><a href="https://docs.oracle.com/javase/8/javafx/interoperability-tutorial/concurrency.htm">JavaFx Interop tutorial</a></li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Starting with 3.2 the book begins with talking about how to safely publish and share variables and state as well as providing examples with how state errors can happen. I will be going in a different order than the book because in my head I think it makes more sense.</p>
+<p>While it may seem obvious, one of the best ways to avoid any problems with state or shared variables is to simply not share them. The less we share inside of our program, the less state that we have to worry about leaking and causing side effects. One amazingly easy way to handle this is by working with the majority of our variables inside of methods as these require explicit returns or accessing shared variables references in order to share the values.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyClass</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">isReadyFlag</span><span class="o">;</span>
+
+    <span class="c1">// This is shared on the heap memory, but it&#39;s safe to share freely because the variable
+</span><span class="c1"></span>    <span class="c1">// reference is final and the refernce points to an immutable object.
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">MY_NAME</span> <span class="o">=</span> <span class="s">&#34;Mike&#34;</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">...</span> <span class="n">args</span><span class="o">){</span>
+        <span class="o">...</span><span class="c1">// Main stuff here
+</span><span class="c1"></span>    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">getReady</span><span class="o">(){</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">isReadyFlag</span><span class="o">){</span>
+            <span class="c1">// we&#39;re checking this value perhaps we exit early or something
+</span><span class="c1"></span>            <span class="c1">// Remember, this has VOLATILE semantics so we cannot guarantee 
+</span><span class="c1"></span>            <span class="c1">// this won&#39;t change in the middle of us processing
+</span><span class="c1"></span>        <span class="o">}</span>
+
+        <span class="c1">// This variable is created inside of this thread&#39;s stack so it&#39;s confined
+</span><span class="c1"></span>        <span class="c1">// and unless we share it there&#39;s no worry about conflict
+</span><span class="c1"></span>        <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">myNames</span> <span class="o">=</span> <span class="n">getNames</span><span class="o">();</span>
+
+        <span class="c1">// Because of how Java&#39;s memory model works with primitives,
+</span><span class="c1"></span>        <span class="c1">// this value is only copied never shared so it&#39;s safe to share 
+</span><span class="c1"></span>        <span class="c1">// as it&#39;ll only create a &#39;copy&#39;
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">theAnswer</span> <span class="o">=</span> <span class="n">42</span><span class="o">;</span>
+
+        <span class="cm">/*
+</span><span class="cm">            .. Do a lot of processing 
+</span><span class="cm">        */</span>
+
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">arbitraryCheck</span><span class="o">){</span>
+            <span class="c1">// Here we&#39;re changing global state so we&#39;re no longer isolated
+</span><span class="c1"></span>            <span class="c1">// Also non-synchronized cannot guarantee the flag is not already 
+</span><span class="c1"></span>            <span class="c1">// set to true
+</span><span class="c1"></span>            <span class="k">this</span><span class="o">.</span><span class="na">isReadyFlag</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">getNames</span><span class="o">(){</span>
+        <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">myNames</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="cm">/*
+</span><span class="cm">            // Generate all the names
+</span><span class="cm">        */</span>
+        <span class="c1">// Even returning this, we are still within our local context
+</span><span class="c1"></span>        <span class="c1">// It&#39;s only when we share this state where it can be read outside of our 
+</span><span class="c1"></span>        <span class="c1">// local thread that we&#39;ve published it to different areas.
+</span><span class="c1"></span>
+        <span class="c1">// Think of it like a secret or something put on the internet,
+</span><span class="c1"></span>        <span class="c1">// once it&#39;s done there&#39;s no way to guarantee there&#39;s no reference to it
+</span><span class="c1"></span>        <span class="k">return</span> <span class="n">myNames</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><p>You can see this listed in the JLS here:
+
+  
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <p class="w3-large w3-serif" style="margin-top: -40px">
+    Memory that can be shared between threads is called shared memory or heap memory. All instance fields, static fields, and array elements are stored in heap memory. In this chapter, we use the term variable to refer to both fields and array elements.Local variables (§14.4), formal method parameters (§8.4.1), and exception handler parameters (§14.20) are never shared between threads and are unaffected by the memory model.Two accesses to (reads of or writes to) the same variable are said to be conflicting if at least one of the accesses is a write.
+  </p><a href="https://docs.oracle.com/javase/specs/jls/se15/html/jls-17.html#jls-17.4.1" style="text-decoration: none">
+    <p>JLS Shared Variables <img src="/icons/link.svg" alt="link icon"></p>
+  </a></div>
+</p>
+<ul>
+<li><em>Local variables (§14.4), formal method parameters (§8.4.1), and exception handler parameters (§14.20) are never shared between threads and are unaffected by the memory model.</em> - JLS 17.4.1
+<ul>
+<li>This is what we did in the prior example, we don&rsquo;t have to worry about our variables if they&rsquo;re not shared.</li>
+</ul>
+</li>
+</ul>
+
+    
+
+    <br/>
+
+    <br/>
+
+    <br/>
+
+<p>OK! I know what you&rsquo;re thinking, what good is a variable if I can&rsquo;t share it? It&rsquo;s use is just keeping place of a value while I process some data or perhaps for some logical validation right? Not really, but protecting most of your stateful elements and providing a way for a user of the class to get the requested data you can improve the integrity of the class by ensuring access to mutable state is only done through expected procedures.</p>
+<p>Now we&rsquo;re back to the book&rsquo;s 3.2 <em>Publication and Escape</em> chapter, it talks about ensuring objects don&rsquo;t simply escape from where they&rsquo;re expected to be. This means that any access to the underlying data structures should be kept to a minimum and if we need to give access to an element of some array or similar structure then we should ensure that we&rsquo;re not leaking out references to the underlying data structure unintentionally.</p>
+<p>&ldquo;The most blatant form of publication is to store a reference in a public static field&rdquo;</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Secret</span><span class="o">&gt;</span> <span class="n">knownSecrets</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">(){</span>
+    <span class="n">knownSecrets</span> <span class="o">=</span> <span class="n">HashSet</span><span class="o">&lt;</span><span class="n">Secret</span><span class="o">&gt;();</span>
+<span class="o">}</span>
+</code></pre></div><p>Quote and example from the book on pg.40</p>
+<p>Here we&rsquo;re just letting anyone access this field, additionally since we&rsquo;re not providing either a synchronized object or any way to ensure a synchronization policy is being observed then any use of this between multiple threads would be considered a broken program. Remember that using unsafe data structures and pieces does not make an unsafe program, it is uncoordinated access between threads to state that causes this.</p>
+<p>This leads to the next example on the same page. A program keeps a private field, but then returns a reference to the field when it&rsquo;s asked for some of its data.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">class</span> <span class="nc">UnsafeStates</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span><span class="o">[]</span> <span class="n">states</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span>
+        <span class="s">&#34;AK&#34;</span><span class="o">,</span> <span class="s">&#34;AL&#34;</span> <span class="o">...</span>
+    <span class="o">};</span>
+
+    <span class="kd">public</span> <span class="n">String</span><span class="o">[]</span> <span class="nf">getStates</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">states</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p>This is a major problem because we&rsquo;ve now removed any safety the &lsquo;private&rsquo; keyword afforded us. We have given anyone that requests data a fully mutable copy of our state. Our data is now suspect as it could be changed by other parts of the program, and the thread safety of this object is further compromised because we can no longer guarantee that synchronized access can ever occur. What can we do to avoid copying our state wrong? The answer has many different options, but it also depends upon the underlying data and if it&rsquo;s immutable</p>
+<ul>
+<li>If the underlying data is mutable, then create a copy of the element or of all elements if you want to return a list. return no references to your class&rsquo;s code.</li>
+<li>If the data is immutable, then you can return an immutable copy of the holding data structure as well references to the immutable objects your data owns</li>
+<li>You CANNOT simply return an unmodifiable list to mutable data, as you&rsquo;re still leaving the data in an unprotected state.</li>
+</ul>
+
+    
+        
+    
+
+    <br/>
+
+<h4 id="we-said-that-we-can-return-elements-if-theyre-immutable-why-is-that">We said that we can return elements if they&rsquo;re immutable, why is that?</h4>
+<p>An immutable object is always thread safe because it&rsquo;s values do not change. This means that no matter who has the data, they state of the object will always be in a consistent manner. You can even go further and join both an immutable object and a volatile variable to create state from stateless classes.</p>
+<ul>
+<li>I want to be extra clear here, I said &lsquo;do not change&rsquo; not cannot change. There are <em>effectively immutable</em> objects and these offer the same kinds of guarantees except you cannot simply trust these values won&rsquo;t change. With proper thread safety techniques, you can build up effective thread safe objects from mutable ones, but you must ensure that when using these objects they&rsquo;re not modified or you&rsquo;ll have additional problems of visibility and atomicity in changes to deal with</li>
+<li>Also I want to point out again, that the thread safety guarantee of <em>volatile</em> is very weak, and is in regards to visibility only. Everyone will be able to see the most current reference object regardless if it&rsquo;s correct or not.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyClass</span><span class="o">{</span>
+    <span class="c1">// Any change is PUBLISHED AND UPDATES ARE ATOMIC
+</span><span class="c1"></span>    <span class="c1">// While state cannot change, we can update our state
+</span><span class="c1"></span>    <span class="c1">// by creating a new ImmutableState object
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">volatile</span> <span class="n">ImmutableState</span> <span class="n">state</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">MyClass</span><span class="o">(){</span>
+        <span class="c1">// update to state that cannot change
+</span><span class="c1"></span>        <span class="n">state</span> <span class="o">=</span> <span class="n">ImmutableState</span><span class="o">.</span><span class="na">getDefaults</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">updateState</span><span class="o">(</span><span class="kt">int</span> <span class="n">statusCode</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(...</span><span class="cm">/* Some logic that might be based on state*/</span><span class="o">){</span>
+            <span class="o">...</span> <span class="c1">// Do stuff
+</span><span class="c1"></span>        <span class="o">}</span>
+        <span class="o">...</span> <span class="c1">// Do stuff
+</span><span class="c1"></span>
+        <span class="c1">// Update state based on conditions
+</span><span class="c1"></span>        <span class="n">state</span> <span class="o">=</span> <span class="n">ImmutableState</span><span class="o">.</span><span class="na">createNewState</span><span class="o">(</span><span class="n">cond1</span><span class="o">,</span> <span class="n">cond2</span><span class="o">,</span> <span class="o">...,</span> <span class="n">condN</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><p>Here we have immutable state so we cannot have something update us, and then we have a volatile variable so any changes to our state are made atomically! Nice right? Well this is great, but it also comes at the cost of having to create and update through immutable objects as well as the fact that our <em>volatile</em> keyword provides no synchronization except visibility. It&rsquo;s possible that someone could have just changed our state or that we&rsquo;re changing our state two times in a row. We could add another flag indicating &lsquo;inChange&rsquo; or something, but then we&rsquo;d have to monitor two variables and see their actions in an atomic fashion. Again, as the author of the book said you should consider carefully what kind of thread coordination policy you want</p>
+<h4 id="some-systems-cannot-have-shared-mutable-access-and-instead-they-must-rely-on-coordinated-access-through-other-means">Some systems cannot have shared mutable access, and instead they must rely on coordinated access through other means.</h4>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; One good example is the <a href="https://docs.oracle.com/javase/8/javafx/interoperability-tutorial/concurrency.htm">JavaFx</a> platform, and pretty much all GUI frameworks, because they use a model of concurrency where only one thread has access to modify data.</p>
+
+  
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <p class="w3-large w3-serif" style="margin-top: -40px">
+    The JavaFX scene graph, which represents the graphical user interface of a JavaFX application, is not thread-safe and can only be accessed and modified from the UI thread also known as the JavaFX Application thread. Implementing long-running tasks on the JavaFX Application thread inevitably makes an application UI unresponsive. A best practice is to do these tasks on one or more background threads and let the JavaFX Application thread process user events.
+  </p><a href="https://docs.oracle.com/javase/8/javafx/interoperability-tutorial/concurrency.htm" style="text-decoration: none">
+    <p>JavaFX: Interoperability <img src="/icons/link.svg" alt="link icon"></p>
+  </a></div>
+
+
+    
+        
+    
+
+    <br/>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So what does this mean for us? Does this mean it&rsquo;s OK to have this kind of concurrency? Yes, but no. So this concurrency is possible and in some cases is the only thing that is possible; however, it&rsquo;s a fragile system as are depending upon someone NEVER USING THE GUI THREAD and only accessing things through proper channels. It is a problem because you are using constructs inside of a library or platform and not getting any help from the compiler or the language itself to provide any validation or checks that you&rsquo;re doing things properly; all errors must be found the manual way through both automated and hands-on testing. So yes you can use this and it does work, it&rsquo;s often difficult to implement.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; As a side note, this reminds me of the idea of our current thread bound reactive programming models inside of Java. While we have a lot of power and usability through reactive-streams setting up long chains and using callbacks, I know in Java we have Future&rsquo;s, Promise&rsquo;s, and CompletableFuture&rsquo;s, but it&rsquo;s all the same idea of delegating a task to occur later down the road. Now don&rsquo;t get me wrong, I love syntactical sugar as much as the next person, but even with these more powerful objects to build upon there is the concern about blocking a single thread.</p>
+
+    
+        
+    
+
+    <br/>
+
+<h4 id="more-than-just-providing-unregulated-access-to-variables-we-can-improperly-construct-our-class-and-have-the-integrity-of-all-of-our-data-be-in-question-since-the-class-hasnt-been-properly-constructed">More than just providing unregulated access to variables, we can improperly construct our class and have the integrity of all of our data be in question since the class hasn&rsquo;t been properly constructed.</h4>
+
+  
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <p class="w3-large w3-serif" style="margin-top: -40px">
+    But an object is in a predictable, consistent state only after its constructor returns, so publishing an object from within its constructor can publish an incompletely constructed object. This is true *even if the publication is the last statement in the constructor.* If the &#39;this&#39; reference escapes during construction, the object is considered *not properly constructed.*
+  </p><p>Java Concurrency In Practice Pg.41</p></div>
+
+<p>It&rsquo;s such an important topic that I want to bring up <a href="https://docs.oracle.com/javase/specs/jls/se15/html/jls-17.html#jls-17.5">JLS 17.5</a> that explicitly mentions this: &ldquo;An object is considered to be completely initialized when its constructor finishes.&rdquo;</p>
+<ul>
+<li>This mentions final fields being in a consistent state only after the constructor has finished, so the JVM is free to wait or provide wrong values for this until the constructor finishes. So you should assume that if you&rsquo;re seeing</li>
+<li><em>&ldquo;Note that if one constructor invokes another constructor, and the invoked constructor sets a final field, the freeze for the final field takes place at the end of the invoked constructor&rdquo;</em> <a href="https://docs.oracle.com/javase/specs/jls/se15/html/jls-17.html#jls-17.5.1">17.5.1 Semantics of final Fields</a></li>
+<li>Remember, Java is an interpreted and sometimes compiled language so each JVM works a little differently but all JVMs must adhere to the specification laid out. This means that those designing the JVM will look for optimizations that are allowed within the spec even if they&rsquo;re not what you&rsquo;d expect. So in this case a JVM may wait until the last possible second to fill out final fields or perhaps it does it early; it&rsquo;s all based upon the JVM being deployed so don&rsquo;t make assumptions.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyClass</span><span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Thread</span> <span class="n">myThread</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">MyClass</span><span class="o">(){</span>
+        
+
+        <span class="n">myThread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(){</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">(){</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Hello Bob&#34;</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">};</span>
+        <span class="c1">// OH NO!!! Doing this will cause the &#39;this&#39; of the unfinished constructor to escape!!!!
+</span><span class="c1"></span>        <span class="n">myThread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span> <span class="c1">// Doesn&#39;t matter if it&#39;s the last line!!!
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>This is a problem, and the book says it&rsquo;s ok to create Threads, Listeners, or other similar types; but you should not run them from the constructor</p>
+<p>instead</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyClass2</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Thread</span> <span class="n">myThread</span><span class="o">;</span>
+
+    <span class="c1">// We make this private so we don&#39;t have to worry about someone else calling it
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">MyClass2</span><span class="o">{</span>
+        <span class="n">myThread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(){...};</span>
+        <span class="c1">// Don&#39;t RUN IT!
+</span><span class="c1"></span>    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">runIt</span><span class="o">(){</span>
+        <span class="n">MyClass2</span> <span class="n">mc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyClass2</span><span class="o">();</span>
+        <span class="c1">// Much better, it&#39;s fully constructed
+</span><span class="c1"></span>        <span class="n">mc</span><span class="o">.</span><span class="na">myThread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>So we&rsquo;re at a good place! We have a class that&rsquo;s fully constructed and we&rsquo;re not leaking any state from our own objects.</p>
+
+    
+  </section>
+</article>
+
+</div>
+      
+    </div>
+<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top w3-center">
+  <p>Copyright 2021 Micheal Arsenault</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html><title>Mike&#39;s Blog</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/w3.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"><style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style><body class="w3-light-grey">
+    
+    
+    <div class="w3-content" style="max-width: 1400px">
+<header class="w3-container w3-center w3-padding-8">
+  <h1><b>Mike&#39;s Blog</b></h1>
+  </header>
+
+<div class="nav-grid-container">
+  <div class="nav-grid-item">
+    <a href="/" class="w3-button wide-block">HOME</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/posts" class="w3-button wide-block">Blog</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/opensource" class="w3-button wide-block">open source</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/about" class="w3-button wide-block">About</a>
+  </div>
+</div>
+        <div id="content">
+<article class="post">
+  <header >
+    
+      
+      <div class="w3-row">
+    <div class="w3-col l7 s12">
+        <div class="w3-panel w3-grey w3-center">
+          <h2>Java Concurrency in Practice: Chapter 3 part 1 | Sharing Objects: The volatile keyword</h2>
+        </div>
+    </div>
+</div>
+    
+    <p> By: <b>Micheal Arsenault</b> <img class="w3-circle" src="/images/me_cropped.jpg" alt="" width="48" height="48"></p><p>Posted: <b>January 14, 2021</b>| Modified: <b>January 24, 2021</b></p>
+    <p>
+      
+      
+      Reading Time: <b>
+      
+        8 
+      minutes</b>
+    </p>
+    <p>
+      Tags:
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/java" class="tag" style="text-decoration: none;"> Java</a>
+      </span>
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/concurrency" class="tag" style="text-decoration: none;"> concurrency</a>
+      </span>
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/book" class="tag" style="text-decoration: none;"> book</a>
+      </span>
+    
+    </p>
+  </header>
+  
+  <section class="body w3-container">
+    
+    <p>Resources:</p>
+<ul>
+<li><a href="https://docs.oracle.com/javase/specs/jls/se15/html/jls-17.html">Java Language Specification: Java SE15.</a></li>
+</ul>
+<p>DISCLAIMER: I&rsquo;m neither smart a nor a <em>clever</em> person. I would highly recommend you get this book and study it instead of the JLS, and while I&rsquo;m including links from the JLS I don&rsquo;t want to claim that I understand anything better than the author of <em>Java Concurrency in Practice</em>. Indeed, I&rsquo;m writing all of this so I can better understand Java&rsquo;s memory model and have found myself using the JLS docs first out of curiosity and then out of respect for how the author took little pieces of information and boiled them to a truly understandable format. Anyways, get the book and read it several times.</p>
+
+    
+
+    <br/>
+
+    <br/>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The main point of this chapter deals with visibility of objects and how this visibility is propagated throughout the JVM&rsquo;s memory and how the internal workings of the Java platform can cause unexpected behaviors. We are also warned there very structure of our code, or how it&rsquo;s laid out in source format does not provide any guarantee to how it will actually be executed during runtime. So what kind of unexpected behaviors can happen with this kind of unexpected results or behavior? From the book there is the following example that actually provides a lot of information just from the example</p>
+
+    
+        
+    
+
+    <br/>
+
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NoVisibility</span><span class="o">{</span>                      <span class="c1">// I can&#39;t put the &#39;yuck face&#39; from the book here :(
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="n">ready</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">number</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">ReaderThread</span> <span class="kd">extends</span> <span class="n">Thread</span><span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">(){</span>
+            <span class="k">while</span><span class="o">(!</span><span class="n">ready</span><span class="o">)</span>
+                <span class="n">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="k">new</span> <span class="n">ReaderThread</span><span class="o">().</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="n">42</span><span class="o">;</span>
+        <span class="n">ready</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><ul>
+<li>page 34</li>
+</ul>
+
+    
+        
+    
+
+    <br/>
+
+<p>Breaking down the example:</p>
+<ul>
+<li>We have a couple primitive variables that will be shared between two threads, but it&rsquo;s important to note there&rsquo;s no synchronization on these elements.</li>
+<li>We create a reader thread that will run until the boolean ready is true</li>
+<li>We start a thread, set the value of <em>number</em>, then set the value of <em>ready</em> to true.
+<ul>
+<li>Because there&rsquo;s no synchronization, the JVM may make changes to our layout based on it&rsquo;s rules as long as it won&rsquo;t break what would be expected to happen in a single thread program.</li>
+</ul>
+</li>
+</ul>
+
+    
+        
+    
+
+    <br/>
+
+<p>Let&rsquo;s start with a huge point, there&rsquo;s no synchronization on this object state values so Java does not have to guarantee they&rsquo;ll be run in any specific order. While in the code we see the reader thread is created and then started BEFORE the number and ready variables are adjusted, this is NOT guaranteed. Java is free to update the variables before the thread starts. While this change may make the ReaderThread never loop, there&rsquo;s also another side to this. There&rsquo;s no guarantee that ReaderThread will ever retrieve the new values.</p>
+<ul>
+<li>There is a chance this could run as we expect with ReaderThread printing out the number value; however, this is not guaranteed.</li>
+<li>The JVM could reorder this code and during optimization prevent or delay the reading and writing the &lsquo;number&rsquo; and &lsquo;ready&rsquo; variables from the shared memory. Instead, they could be reading a cached version that WILL NEVER BE UPDATED.</li>
+</ul>
+<p>
+    
+        
+    
+
+    <br/>
+
+We also cannot hope that Java&rsquo;s Thread.yield() method will have any help here:</p>
+
+  
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <p class="w3-large w3-serif" style="margin-top: -40px">
+    It is important to note that neither Thread.sleep nor Thread.yield have any synchronization semantics. In particular, the compiler does not have to flush writes cached in registers out to shared memory before a call to Thread.sleep or Thread.yield, nor does the compiler have to reload values cached in registers after a call to Thread.sleep or Thread.yield.
+  </p><a href="https://docs.oracle.com/javase/specs/jls/se15/html/jls-17.html#jls-17.3" style="text-decoration: none">
+    <p>17.3. Sleep and Yield <img src="/icons/link.svg" alt="link icon"></p>
+  </a></div>
+
+<p>Perhaps this is not surprising, but for a process that is designed to help facilitate the inter-process communication on waiting and resuming tasks or acquiring locks it provides no synchronization on it&rsquo;s memory.</p>
+<p>So what does all this mean for our program?</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; It means that our example program above is broken, and regardless of whether it works &ldquo;Most of the time&rdquo; it&rsquo;s incorrect.
+It also means that we cannot simply &lsquo;assume&rsquo; or expect properly putting syntax in the correct position will work either, the JVM has the ability to move code around and to work with internal cache, and per the book the ability to make these changes is all in the benefit of making the Java platform run faster and produce more efficient code. If the JVM can monitor variables and see their access and update values it can remove unnecessary writes and reads from a loop or perform other similar behaviors.</p>
+
+  
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <p class="w3-large w3-serif" style="margin-top: -40px">
+    It should be noted that the presence of a happens-before relationship between two actions does not necessarily imply that they have to take place in that order in an implementation. If the reordering produces results consistent with a legal execution, it is not illegal. For example, the write of a default value to every field of an object constructed by a thread need not happen before the beginning of that thread, as long as no read ever observes that fact. 
+  </p><a href="https://docs.oracle.com/javase/specs/jls/se15/html/jls-17.html#jls-17.4.5" style="text-decoration: none">
+    <p>Java15 JLS 17.4.5 <img src="/icons/link.svg" alt="link icon"></p>
+  </a></div>
+
+
+    
+        
+    
+
+    <br/>
+
+<p>Does this mean that our program will never write memory back to the main memory?</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; No, but it does mean that without any kind of synchronization, and Thread methods like yield() &amp; wait() do not provide any guarantee. It also leads us to another problem that the book explains &lsquo;Stale Data&rsquo;. We have no guarantee of when the last value was updated, we can&rsquo;t even tell if we&rsquo;re working with main memory or just a cached version that&rsquo;s local to our thread, and with each additional thread this problem is compounded because we can have varying degrees of inaccuracy.</p>
+<p>So what can we do about this caching problem?</p>
+<p>Java has a keyword in place to ensure that we always retrieve the most current version of the variable stored in memory. It&rsquo;s the <em>volatile</em> keyword. Here&rsquo;s what the docs have to say about it:</p>
+
+
+
+
+
+    
+
+
+    
+
+<div class="w3-panel w3-leftbar w3-sand">
+  <span style="font-size: 150px; line-height: 0.6em; opacity: 0.2">❝</span>
+  <div class="w3-large w3-serif" style="margin-top: -40px">
+
+<!--  -->
+
+The Java programming language allows threads to access shared variables (<a href="https://docs.oracle.com/javase/specs/jls/se15/html/jls-17.html#jls-17.1">§17.1</a>). As a rule, to ensure that shared variables are consistently and reliably updated, a thread should ensure that it has exclusive use of such variables by obtaining a lock that, conventionally, enforces mutual exclusion for those shared variables.
+
+    
+
+    <br/>
+
+    <br/>
+
+The Java programming language provides a second mechanism, volatile fields, that is more convenient than locking for some purposes.
+
+    
+
+    <br/>
+
+    <br/>
+
+A field may be declared volatile, in which case the Java Memory Model ensures that all threads see a consistent value for the variable (<a href="https://docs.oracle.com/javase/specs/jls/se15/html/jls-17.html#jls-17.4">§17.4</a>). 
+<!--  -->
+
+  </div>
+  <a href="https://docs.oracle.com/javase/specs/jls/se15/html/jls-8.html#jls-8.3.1.4" style="text-decoration: none">
+    <p>8.3.1.4. volatile Fields <img src="/icons/link.svg" alt="link icon"></p>
+  </a>
+</div>
+
+
+
+<p>OK! So we have a &ldquo;&hellip;more convenient than locking for some purposes.&rdquo; variable, what does that mean?</p>
+<p>This means that when it comes to actions regarding this variable, we are able to ensure that we&rsquo;re always reading and writing to the main memory and therefore will always have the most current value; however, this value is not guaranteed to stay at it&rsquo;s current value as it has no locking and therefore another thread may modify it.</p>
+<ul>
+<li>So can one thread read while another thread write to the value?</li>
+</ul>
+<p>Luckily for us, and with the exception of 64 bit operators <em>Long</em> and <em>Double</em>, we are guaranteed that reading or writing to a variable cannot interfere with another thread reading or writing to a variable <a href="https://docs.oracle.com/javase/specs/jls/se15/html/jls-17.html#jls-17.6">17.6. Word Tearing </a>. So we can be assured that our change will <a href="https://docs.oracle.com/javase/specs/jls/se15/html/jls-17.html#jls-17.4.5"><em>happen-before</em></a> any subsequent reading or writing of the variable. Just to note, I&rsquo;ve intentionally used this phrasing, as the JLS uses wording like this to describe how its memory model should operate.</p>
+<p>So we know the memory won&rsquo;t be corrupted or written in half, with two exceptions, but can we really use this keyword to ensure synchronization? No, this keyword provides no real synchronization guarantee except for the guarantee that comes from ensuring caching on local threads will be read/written directly to memory so we don&rsquo;t have to worry about updated not being propagated through the JVM memory.</p>
+<p>What does this mean?</p>
+<p>Remember the <strong>while (!ready)</strong> from the book&rsquo;s earlier example? Now we can guarantee that if there is a change to the variable, this change will not be isolated to a single thread, but instead the changes will be visible to the entire program and the earlier code will be able to continue as we would normally expect in a single threaded environment. Also, while <strong>volatile</strong> variables are seen correctly there&rsquo;s still no coordination so you cannot guarantee the value of a variable will remain consistent while you process other information. Therefore, a <strong>volatile</strong> variable makes a great flag for state indication (open/closed/ready) but would make a poor choice if you&rsquo;re looking to share an actual data that might be used for processing other information.</p>
+
+    
+  </section>
+</article>
+
+</div>
+      
+    </div>
+<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top w3-center">
+  <p>Copyright 2021 Micheal Arsenault</p>
+</footer>
+</body>
+</html>
