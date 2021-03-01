@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en"><title>Mike&#39;s Blog</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/w3.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"><style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style><body class="w3-light-grey">
+    
+    
+    <div class="w3-content" style="max-width: 1400px">
+<header class="w3-container w3-center w3-padding-8">
+  <h1><b>Mike&#39;s Blog</b></h1>
+  </header>
+
+<div class="nav-grid-container">
+  <div class="nav-grid-item">
+    <a href="/" class="w3-button wide-block">HOME</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/posts" class="w3-button wide-block">Blog</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/opensource" class="w3-button wide-block">open source</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/about" class="w3-button wide-block">About</a>
+  </div>
+</div>
+        <div id="content">
+<article class="post">
+  <header >
+    
+      
+      <div class="w3-row">
+    <div class="w3-col l7 s12">
+        <div class="w3-panel w3-grey w3-center">
+          <h2>Codin Game Batman With Java | Codin Game Batman With Java</h2>
+        </div>
+    </div>
+</div>
+    
+    <p> By: <b>Micheal Arsenault</b> <img class="w3-circle" src="/images/me_cropped.jpg" alt="" width="48" height="48"></p><p>Posted: <b>January 26, 2021</b>| Modified: <b>February 28, 2021</b></p>
+    <p>
+      
+      
+      Reading Time: <b>
+      <span style="font-size:smaller;">&lt;</span>5
+      minutes</b>
+    </p>
+    <p>
+      Tags:
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/java" class="tag" style="text-decoration: none;"> Java</a>
+      </span>
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/learning" class="tag" style="text-decoration: none;"> Learning</a>
+      </span>
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/challenges" class="tag" style="text-decoration: none;"> challenges</a>
+      </span>
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/coding" class="tag" style="text-decoration: none;"> Coding</a>
+      </span>
+    
+    </p>
+  </header>
+  
+  <section class="body w3-container">
+    
+    <ul>
+<li>Challenge: <a href="https://www.codingame.com/training/medium/shadows-of-the-knight-episode-1/">https://www.codingame.com/training/medium/shadows-of-the-knight-episode-1/</a></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.math.*</span><span class="o">;</span>
+
+<span class="cm">/**
+</span><span class="cm"> * Auto-generated code below aims at helping you parse
+</span><span class="cm"> * the standard input according to the problem statement.
+</span><span class="cm"> **/</span>
+<span class="kd">class</span> <span class="nc">Player</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Board</span><span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="n">x0</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="n">y0</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="n">x1</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="n">y1</span><span class="o">;</span>
+
+        <span class="kd">public</span> <span class="kt">int</span> <span class="n">bx</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="n">by</span><span class="o">;</span>
+
+        <span class="kd">public</span> <span class="nf">Board</span><span class="o">(</span><span class="kt">int</span> <span class="n">width</span><span class="o">,</span> <span class="kt">int</span> <span class="n">height</span><span class="o">){</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">x0</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">y0</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">x1</span> <span class="o">=</span> <span class="n">width</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">y1</span> <span class="o">=</span> <span class="n">height</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">move</span><span class="o">(</span><span class="n">String</span> <span class="n">dir</span><span class="o">){</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">updateBoard</span><span class="o">(</span><span class="n">dir</span><span class="o">);</span>
+            <span class="kt">int</span><span class="o">[]</span> <span class="n">movement</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getHalfMovement</span><span class="o">();</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">setBatman</span><span class="o">(</span><span class="n">movement</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">movement</span><span class="o">;</span>
+        <span class="o">}</span>
+
+
+        <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">getHalfMovement</span><span class="o">(){</span>
+            
+            <span class="k">return</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]</span> <span class="o">{</span>
+                <span class="o">((</span><span class="k">this</span><span class="o">.</span><span class="na">x0</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">x1</span><span class="o">)/</span><span class="n">2</span><span class="o">),</span>
+                <span class="o">((</span><span class="k">this</span><span class="o">.</span><span class="na">y0</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">y1</span><span class="o">)/</span><span class="n">2</span><span class="o">)</span>
+            <span class="o">};</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="n">Board</span> <span class="nf">updateBoard</span><span class="o">(</span><span class="n">String</span> <span class="n">dir</span><span class="o">){</span>
+            <span class="n">dir</span> <span class="o">=</span> <span class="n">dir</span><span class="o">.</span><span class="na">toUpperCase</span><span class="o">();</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">dir</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">1</span><span class="o">){</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">dir</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">1</span><span class="o">).</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;U&#34;</span><span class="o">)){</span>
+                    <span class="k">this</span><span class="o">.</span><span class="na">y1</span> <span class="o">=</span> <span class="n">by</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> <span class="c1">// should only be U or D
+</span><span class="c1"></span>                    <span class="k">this</span><span class="o">.</span><span class="na">y0</span> <span class="o">=</span> <span class="n">by</span> <span class="o">+</span><span class="n">1</span><span class="o">;</span>
+                <span class="o">}</span>
+
+                <span class="k">if</span> <span class="o">(</span><span class="n">dir</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">).</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;R&#34;</span><span class="o">))</span> <span class="o">{</span>
+                    <span class="k">this</span><span class="o">.</span><span class="na">x0</span> <span class="o">=</span> <span class="n">bx</span> <span class="o">+</span><span class="n">1</span><span class="o">;</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                    <span class="k">this</span><span class="o">.</span><span class="na">x1</span> <span class="o">=</span> <span class="n">bx</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+                <span class="o">}</span>
+
+            <span class="o">}</span> <span class="k">else</span><span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">dir</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;U&#34;</span><span class="o">)</span> <span class="o">||</span> <span class="n">dir</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;D&#34;</span><span class="o">))</span> <span class="o">{</span>
+                        <span class="k">this</span><span class="o">.</span><span class="na">x0</span> <span class="o">=</span> <span class="n">bx</span><span class="o">;</span>
+                        <span class="k">this</span><span class="o">.</span><span class="na">x1</span> <span class="o">=</span> <span class="n">bx</span><span class="o">;</span>
+						
+                        <span class="c1">// Need to update this based on u/d
+</span><span class="c1"></span>                        <span class="k">if</span><span class="o">(</span><span class="n">dir</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;U&#34;</span><span class="o">)){</span>
+                            <span class="k">this</span><span class="o">.</span><span class="na">y1</span> <span class="o">=</span> <span class="n">by</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+                        <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+                            <span class="k">this</span><span class="o">.</span><span class="na">y0</span> <span class="o">=</span> <span class="n">by</span> <span class="o">+</span><span class="n">1</span><span class="o">;</span>
+                        <span class="o">}</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                        <span class="k">this</span><span class="o">.</span><span class="na">y0</span> <span class="o">=</span> <span class="n">by</span><span class="o">;</span>
+                        <span class="k">this</span><span class="o">.</span><span class="na">y1</span> <span class="o">=</span> <span class="n">by</span><span class="o">;</span>
+						
+                        <span class="k">if</span><span class="o">(</span><span class="n">dir</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;L&#34;</span><span class="o">)){</span>
+                            <span class="k">this</span><span class="o">.</span><span class="na">x1</span> <span class="o">=</span> <span class="n">bx</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+                        <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+                            <span class="k">this</span><span class="o">.</span><span class="na">x0</span> <span class="o">=</span> <span class="n">bx</span> <span class="o">+</span><span class="n">1</span><span class="o">;</span>
+                        <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="n">Board</span> <span class="nf">setBatman</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">){</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">bx</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">by</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+            <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="n">Board</span> <span class="nf">setBatman</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">xy</span><span class="o">){</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">bx</span> <span class="o">=</span> <span class="n">xy</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">by</span> <span class="o">=</span> <span class="n">xy</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+            <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">getBatman</span><span class="o">(){</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">bx</span><span class="o">,</span><span class="n">by</span><span class="o">};</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[])</span> <span class="o">{</span>
+        <span class="n">Scanner</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">W</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span> <span class="c1">// width of the building.
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">H</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span> <span class="c1">// height of the building.
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span> <span class="c1">// maximum number of turns before game over.
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">X0</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">Y0</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+
+        <span class="n">Board</span> <span class="n">board</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Board</span><span class="o">(</span><span class="n">W</span><span class="o">,</span><span class="n">H</span><span class="o">).</span><span class="na">setBatman</span><span class="o">(</span><span class="n">X0</span><span class="o">,</span> <span class="n">Y0</span><span class="o">);</span>
+
+        <span class="cm">/*
+</span><span class="cm">            each turn we&#39;ll get a relative location of the bomb,
+</span><span class="cm">                * Each turn should reduce the amount of searchable space
+</span><span class="cm">                    * need an array of possible locations based on where it could be
+</span><span class="cm">                    * This will always be in a grid style, so even an x y of heights/widths of 1
+</span><span class="cm">                * Each turn should shrink this array, based on what we have so if it should be a square array
+</span><span class="cm">                    [x0,y0,x1,y1]
+</span><span class="cm">                        originally this will be the entire board set to [0,0,width, height] // remember top left is 0,0
+</span><span class="cm">                        // if one of these is missing then we&#39;ve got at least one good coordinate
+</span><span class="cm">                        x0 bottom bound, will only change if right+ shown
+</span><span class="cm">                        y0 bottom bound, will only change if +up shown
+</span><span class="cm">                        x1 top bound, will only change if down+ shown
+</span><span class="cm">                        y1 top bound, will only change if +left shown
+</span><span class="cm">
+</span><span class="cm">                        if up/down, then set x0&amp;x1 to current x position of batman
+</span><span class="cm">                        ditto for up
+</span><span class="cm">
+</span><span class="cm">                        if right/left then set y0&amp;y1 to current y position
+</span><span class="cm">
+</span><span class="cm">        */</span>
+        
+        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+            
+            <span class="n">String</span> <span class="n">bombDir</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">next</span><span class="o">();</span> <span class="c1">// the direction of the bombs from batman&#39;s current location (U, UR, R, DR, D, DL, L or UL)
+</span><span class="c1"></span>
+            <span class="kt">int</span><span class="o">[]</span> <span class="n">movement</span> <span class="o">=</span> <span class="n">board</span><span class="o">.</span><span class="na">move</span><span class="o">(</span><span class="n">bombDir</span><span class="o">);</span>
+            
+            <span class="c1">// System.out.printf(&#34;%d %d&#34;, movement[0],movement[1]); // This doesn&#39;t work it just times out
+</span><span class="c1"></span>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">movement</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">+</span><span class="s">&#34; &#34;</span> <span class="o">+</span> <span class="n">movement</span><span class="o">[</span><span class="n">1</span><span class="o">]);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div>
+    
+  </section>
+</article>
+
+</div>
+      
+    </div>
+<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top w3-center">
+  <p>Copyright 2021 Micheal Arsenault</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Learning on Mike&#39;s Blog</title>
+    <link>http://mike2ykme.github.io/tags/learning/</link>
+    <description>Recent content in Learning on Mike&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 26 Jan 2021 23:05:01 -0600</lastBuildDate><atom:link href="http://mike2ykme.github.io/tags/learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Codin Game Bender With Java</title>
+      <link>http://mike2ykme.github.io/posts/2021/01/codin-game-bender-with-java/</link>
+      <pubDate>Tue, 26 Jan 2021 23:05:01 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/posts/2021/01/codin-game-bender-with-java/</guid>
+      <description>Bender coding challenge in Java</description>
+    </item>
+    
+    <item>
+      <title>Codin Game Batman With Java</title>
+      <link>http://mike2ykme.github.io/posts/2021/01/codin-game-batman-with-java/</link>
+      <pubDate>Tue, 26 Jan 2021 23:00:55 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/posts/2021/01/codin-game-batman-with-java/</guid>
+      <description>Batman coding challenge in Java</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en"><title>Mike&#39;s Blog</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/w3.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"><style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style><body class="w3-light-grey">
+    
+    
+    <div class="w3-content" style="max-width: 1400px">
+<header class="w3-container w3-center w3-padding-8">
+  <h1><b>Mike&#39;s Blog</b></h1>
+  </header>
+
+<div class="nav-grid-container">
+  <div class="nav-grid-item">
+    <a href="/" class="w3-button wide-block">HOME</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/posts" class="w3-button wide-block">Blog</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/opensource" class="w3-button wide-block">open source</a>
+  </div>
+  <div class="nav-grid-item">
+    <a href="/about" class="w3-button wide-block">About</a>
+  </div>
+</div>
+        <div id="content">
+<article class="post">
+  <header >
+    
+      
+      <div class="w3-row">
+    <div class="w3-col l7 s12">
+        <div class="w3-panel w3-grey w3-center">
+          <h2>Codin Game Bender With Java | Codin Game Bender With Java</h2>
+        </div>
+    </div>
+</div>
+    
+    <p> By: <b>Micheal Arsenault</b> <img class="w3-circle" src="/images/me_cropped.jpg" alt="" width="48" height="48"></p><p>Posted: <b>January 26, 2021</b>| Modified: <b>February 28, 2021</b></p>
+    <p>
+      
+      
+      Reading Time: <b>
+      <span style="font-size:smaller;">&lt;</span>5
+      minutes</b>
+    </p>
+    <p>
+      Tags:
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/java" class="tag" style="text-decoration: none;"> Java</a>
+      </span>
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/learning" class="tag" style="text-decoration: none;"> Learning</a>
+      </span>
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/challenges" class="tag" style="text-decoration: none;"> challenges</a>
+      </span>
+    
+      <span class="w3-tag w3-green w3-round-large" style="margin-top:2px;">
+        <a href="/tags/coding" class="tag" style="text-decoration: none;"> Coding</a>
+      </span>
+    
+    </p>
+  </header>
+  
+  <section class="body w3-container">
+    
+    <ul>
+<li>Challenge: <a href="https://www.codingame.com/training/medium/shadows-of-the-knight-episode-1/">https://www.codingame.com/training/medium/shadows-of-the-knight-episode-1/</a></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java">
+<span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.math.*</span><span class="o">;</span>
+
+<span class="cm">/**
+</span><span class="cm"> * Auto-generated code below aims at helping you parse
+</span><span class="cm"> * the standard input according to the problem statement.
+</span><span class="cm"> **/</span>
+
+<span class="kd">enum</span> <span class="n">Direction</span><span class="o">{</span>
+    <span class="n">NORTH</span><span class="o">,</span> <span class="n">EAST</span><span class="o">,</span> <span class="n">WEST</span><span class="o">,</span> <span class="n">SOUTH</span><span class="o">,</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Point</span><span class="o">{</span>
+    <span class="kt">int</span> <span class="n">x</span><span class="o">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Point</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span> 
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(!(</span><span class="n">obj</span> <span class="k">instanceof</span> <span class="n">Point</span><span class="o">))</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="n">Point</span> <span class="n">other</span> <span class="o">=</span> <span class="o">(</span><span class="n">Point</span><span class="o">)</span> <span class="n">obj</span><span class="o">;</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="na">x</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="na">y</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getKey</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;%d-%d&#34;</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">y</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Point</span> <span class="nf">addX</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">+=</span> <span class="n">x</span><span class="o">;</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Point</span> <span class="nf">addY</span><span class="o">(</span><span class="kt">int</span> <span class="n">y</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">+=</span> <span class="n">y</span><span class="o">;</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Point</span> <span class="nf">clone</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Point</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">x</span><span class="o">,</span><span class="k">this</span><span class="o">.</span><span class="na">y</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Point</span> <span class="nf">addDirection</span><span class="o">(</span><span class="n">Direction</span> <span class="n">direction</span><span class="o">){</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">direction</span><span class="o">){</span>
+            <span class="k">case</span> <span class="n">NORTH</span><span class="o">:</span>
+                <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">clone</span><span class="o">().</span><span class="na">addY</span><span class="o">(-</span><span class="n">1</span><span class="o">);</span>
+            <span class="k">case</span> <span class="n">EAST</span><span class="o">:</span>
+                <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">clone</span><span class="o">().</span><span class="na">addX</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+            <span class="k">case</span> <span class="n">WEST</span><span class="o">:</span>
+                <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">clone</span><span class="o">().</span><span class="na">addX</span><span class="o">(-</span><span class="n">1</span><span class="o">);</span>
+            <span class="k">case</span> <span class="n">SOUTH</span><span class="o">:</span>
+                <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">clone</span><span class="o">().</span><span class="na">addY</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">State</span> <span class="o">{</span>
+    <span class="n">Point</span> <span class="n">point</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="o">(</span><span class="n">0</span><span class="o">,</span><span class="n">0</span><span class="o">);</span>
+    <span class="kt">boolean</span>  <span class="n">inverted</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="kt">boolean</span> <span class="n">beerMode</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="n">Direction</span> <span class="n">direction</span> <span class="o">=</span> <span class="n">Direction</span><span class="o">.</span><span class="na">SOUTH</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">wallChanges</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">Point</span> <span class="nf">getPoint</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">point</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getKey</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">point</span><span class="o">.</span><span class="na">getKey</span><span class="o">()+</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;-%d-%b-%b-%s&#34;</span><span class="o">,</span> <span class="n">wallChanges</span><span class="o">,</span><span class="n">inverted</span><span class="o">,</span><span class="n">beerMode</span><span class="o">,</span><span class="n">direction</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(!(</span><span class="n">obj</span> <span class="k">instanceof</span> <span class="n">State</span><span class="o">))</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+
+        <span class="n">State</span> <span class="n">other</span> <span class="o">=</span> <span class="o">(</span><span class="n">State</span><span class="o">)</span> <span class="n">obj</span><span class="o">;</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">point</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">other</span><span class="o">.</span><span class="na">point</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="na">inverted</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="na">inverted</span> <span class="o">&amp;&amp;</span> 
+            <span class="k">this</span><span class="o">.</span><span class="na">beerMode</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="na">beerMode</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="na">direction</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="na">direction</span> <span class="o">&amp;&amp;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">wallChanges</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="na">wallChanges</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">State</span> <span class="nf">clone</span><span class="o">(){</span>
+        <span class="n">State</span> <span class="n">state</span> <span class="o">=</span> <span class="k">new</span> <span class="n">State</span><span class="o">();</span>
+        <span class="n">state</span><span class="o">.</span><span class="na">point</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">point</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+        <span class="n">state</span><span class="o">.</span><span class="na">inverted</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">inverted</span><span class="o">;</span>
+        <span class="n">state</span><span class="o">.</span><span class="na">beerMode</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">beerMode</span><span class="o">;</span>
+        <span class="n">state</span><span class="o">.</span><span class="na">direction</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">direction</span><span class="o">;</span>
+        <span class="n">state</span><span class="o">.</span><span class="na">wallChanges</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">wallChanges</span><span class="o">;</span>
+
+        <span class="k">return</span> <span class="n">state</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Board</span><span class="o">{</span>
+    <span class="n">Point</span><span class="o">[]</span> <span class="n">teleports</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kt">char</span><span class="o">[][]</span> <span class="n">grid</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">State</span> <span class="n">currentState</span> <span class="o">=</span> <span class="k">new</span> <span class="n">State</span><span class="o">();</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">List</span><span class="o">&lt;</span><span class="n">State</span><span class="o">&gt;&gt;</span> <span class="n">prevStates</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="n">Point</span> <span class="nf">getOtherTeleport</span><span class="o">(</span><span class="n">Point</span> <span class="n">p</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">teleports</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">equals</span><span class="o">(</span><span class="n">p</span><span class="o">))</span>
+            <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">teleports</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">teleports</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kt">char</span> <span class="nf">getCharAtPoint</span><span class="o">(</span><span class="n">Point</span> <span class="n">p</span><span class="o">){</span>
+        <span class="k">return</span> <span class="n">grid</span><span class="o">[</span><span class="n">p</span><span class="o">.</span><span class="na">x</span><span class="o">][</span><span class="n">p</span><span class="o">.</span><span class="na">y</span><span class="o">];</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">updateCharAtPoint</span><span class="o">(</span><span class="n">Point</span> <span class="n">p</span><span class="o">,</span> <span class="kt">char</span> <span class="n">c</span><span class="o">){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;breaking wall&#34;</span><span class="o">);</span>
+        <span class="n">grid</span><span class="o">[</span><span class="n">p</span><span class="o">.</span><span class="na">x</span><span class="o">][</span><span class="n">p</span><span class="o">.</span><span class="na">y</span><span class="o">]</span> <span class="o">=</span> <span class="n">c</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">alreadyVisited</span><span class="o">(</span><span class="n">State</span> <span class="n">state</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">prevStates</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">state</span><span class="o">.</span><span class="na">getKey</span><span class="o">()))</span> 
+            <span class="k">for</span> <span class="o">(</span><span class="n">State</span> <span class="n">oldState</span> <span class="o">:</span> <span class="n">prevStates</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">state</span><span class="o">.</span><span class="na">getKey</span><span class="o">()))</span> 
+                <span class="k">if</span> <span class="o">(</span><span class="n">oldState</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">state</span><span class="o">))</span>
+                    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">move</span><span class="o">(</span><span class="n">State</span> <span class="n">state</span><span class="o">){</span>
+        <span class="n">String</span> <span class="n">stateKey</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="na">getKey</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">prevStates</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">stateKey</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">prevStates</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">stateKey</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="n">state</span><span class="o">.</span><span class="na">clone</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">List</span><span class="o">&lt;</span><span class="n">State</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+            <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">state</span><span class="o">.</span><span class="na">clone</span><span class="o">());</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">prevStates</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">stateKey</span><span class="o">,</span> <span class="n">list</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">canMoveDirection</span><span class="o">(</span><span class="n">Direction</span> <span class="n">direction</span><span class="o">,</span> <span class="n">Point</span> <span class="n">currentLocation</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">isDrunk</span><span class="o">){</span>
+        <span class="kt">char</span> <span class="n">location</span> <span class="o">=</span> <span class="n">getCharAtPoint</span><span class="o">(</span><span class="n">currentLocation</span><span class="o">.</span><span class="na">addDirection</span><span class="o">(</span><span class="n">direction</span><span class="o">));</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">location</span> <span class="o">==</span> <span class="sc">&#39;#&#39;</span> <span class="o">||</span> <span class="o">(</span><span class="n">location</span> <span class="o">==</span> <span class="sc">&#39;X&#39;</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">isDrunk</span><span class="o">))</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Direction</span> <span class="nf">nextDirection</span><span class="o">(</span><span class="n">Direction</span> <span class="n">direction</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">isInverted</span><span class="o">){</span>
+<span class="c1">// ORIGINAL (SOUTH, EAST, NORTH, WEST)
+</span><span class="c1">// Inverted (WEST, NORTH, EAST, SOUTH). 
+</span><span class="c1"></span>        <span class="k">switch</span> <span class="o">(</span><span class="n">direction</span><span class="o">){</span>
+            <span class="k">case</span> <span class="n">NORTH</span><span class="o">:</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">isInverted</span><span class="o">)</span> 
+                    <span class="k">return</span> <span class="n">Direction</span><span class="o">.</span><span class="na">EAST</span><span class="o">;</span>
+                <span class="k">return</span> <span class="n">Direction</span><span class="o">.</span><span class="na">WEST</span><span class="o">;</span>
+            <span class="k">case</span> <span class="n">EAST</span><span class="o">:</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">isInverted</span><span class="o">)</span>
+                    <span class="k">return</span> <span class="n">Direction</span><span class="o">.</span><span class="na">SOUTH</span><span class="o">;</span>
+                <span class="k">return</span> <span class="n">Direction</span><span class="o">.</span><span class="na">NORTH</span><span class="o">;</span>
+            <span class="k">case</span> <span class="n">WEST</span><span class="o">:</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">isInverted</span><span class="o">)</span>
+                    <span class="k">return</span> <span class="n">Direction</span><span class="o">.</span><span class="na">NORTH</span><span class="o">;</span>
+                <span class="k">return</span> <span class="n">Direction</span><span class="o">.</span><span class="na">SOUTH</span><span class="o">;</span>
+            <span class="k">case</span> <span class="n">SOUTH</span><span class="o">:</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">isInverted</span><span class="o">)</span> 
+                    <span class="k">return</span> <span class="n">Direction</span><span class="o">.</span><span class="na">WEST</span><span class="o">;</span>
+                <span class="k">return</span> <span class="n">Direction</span><span class="o">.</span><span class="na">EAST</span><span class="o">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="s">&#34;DIRECTION PROBLEM&#34;</span><span class="o">);</span>
+
+        <span class="o">}</span>
+        <span class="c1">// return null;
+</span><span class="c1"></span>    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">generateAnswer</span><span class="o">(){</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">moves</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
+
+        <span class="k">while</span> <span class="o">(</span><span class="n">getCharAtPoint</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">currentState</span><span class="o">.</span><span class="na">getPoint</span><span class="o">())</span> <span class="o">!=</span> <span class="sc">&#39;$&#39;</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">alreadyVisited</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">currentState</span><span class="o">))</span>
+                <span class="k">return</span> <span class="n">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;LOOP&#34;</span><span class="o">);</span>
+            
+            <span class="c1">// Mark as visited
+</span><span class="c1"></span>            <span class="n">move</span><span class="o">(</span><span class="n">currentState</span><span class="o">);</span>
+            <span class="n">currentState</span> <span class="o">=</span> <span class="n">currentState</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+
+            <span class="k">switch</span> <span class="o">(</span><span class="n">getCharAtPoint</span><span class="o">(</span><span class="n">currentState</span><span class="o">.</span><span class="na">point</span><span class="o">)){</span>
+                <span class="c1">// Should&#39;t reach this case because we checked for it before we started the loop
+</span><span class="c1"></span>                <span class="c1">// case &#39;$&#39;:
+</span><span class="c1"></span>                <span class="k">case</span> <span class="sc">&#39;T&#39;</span><span class="o">:</span>
+                    <span class="n">currentState</span><span class="o">.</span><span class="na">point</span> <span class="o">=</span> <span class="n">getOtherTeleport</span><span class="o">(</span><span class="n">currentState</span><span class="o">.</span><span class="na">point</span><span class="o">);</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="sc">&#39;I&#39;</span><span class="o">:</span>
+                    <span class="n">currentState</span><span class="o">.</span><span class="na">inverted</span> <span class="o">=</span> <span class="o">!</span><span class="n">currentState</span><span class="o">.</span><span class="na">inverted</span><span class="o">;</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="sc">&#39;B&#39;</span><span class="o">:</span>
+                    <span class="n">currentState</span><span class="o">.</span><span class="na">beerMode</span> <span class="o">=</span> <span class="o">!</span><span class="n">currentState</span><span class="o">.</span><span class="na">beerMode</span><span class="o">;</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="sc">&#39;N&#39;</span><span class="o">:</span>
+                    <span class="n">currentState</span><span class="o">.</span><span class="na">direction</span> <span class="o">=</span> <span class="n">Direction</span><span class="o">.</span><span class="na">NORTH</span><span class="o">;</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="sc">&#39;E&#39;</span><span class="o">:</span>
+                    <span class="n">currentState</span><span class="o">.</span><span class="na">direction</span> <span class="o">=</span> <span class="n">Direction</span><span class="o">.</span><span class="na">EAST</span><span class="o">;</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="sc">&#39;W&#39;</span><span class="o">:</span>
+                    <span class="n">currentState</span><span class="o">.</span><span class="na">direction</span> <span class="o">=</span> <span class="n">Direction</span><span class="o">.</span><span class="na">WEST</span><span class="o">;</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="sc">&#39;S&#39;</span><span class="o">:</span>   
+                    <span class="n">currentState</span><span class="o">.</span><span class="na">direction</span> <span class="o">=</span> <span class="n">Direction</span><span class="o">.</span><span class="na">SOUTH</span><span class="o">;</span>
+                    <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+			<span class="k">if</span><span class="o">(!</span><span class="n">canMoveDirection</span><span class="o">(</span><span class="n">currentState</span><span class="o">.</span><span class="na">direction</span><span class="o">,</span> <span class="n">currentState</span><span class="o">.</span><span class="na">point</span><span class="o">,</span> <span class="n">currentState</span><span class="o">.</span><span class="na">beerMode</span><span class="o">)){</span>
+				<span class="n">currentState</span><span class="o">.</span><span class="na">direction</span> <span class="o">=</span> <span class="o">(</span><span class="n">currentState</span><span class="o">.</span><span class="na">inverted</span><span class="o">)</span> <span class="o">?</span> <span class="n">Direction</span><span class="o">.</span><span class="na">WEST</span><span class="o">:</span><span class="n">Direction</span><span class="o">.</span><span class="na">SOUTH</span><span class="o">;</span>
+				<span class="k">while</span><span class="o">(!</span><span class="n">canMoveDirection</span><span class="o">(</span><span class="n">currentState</span><span class="o">.</span><span class="na">direction</span><span class="o">,</span> <span class="n">currentState</span><span class="o">.</span><span class="na">point</span><span class="o">,</span> <span class="n">currentState</span><span class="o">.</span><span class="na">beerMode</span><span class="o">)){</span>
+					<span class="n">currentState</span><span class="o">.</span><span class="na">direction</span> <span class="o">=</span> <span class="n">nextDirection</span><span class="o">(</span><span class="n">currentState</span><span class="o">.</span><span class="na">direction</span><span class="o">,</span> <span class="n">currentState</span><span class="o">.</span><span class="na">inverted</span><span class="o">);</span>
+				<span class="o">}</span>
+			<span class="o">}</span>
+			<span class="n">currentState</span><span class="o">.</span><span class="na">point</span> <span class="o">=</span> <span class="n">currentState</span><span class="o">.</span><span class="na">point</span><span class="o">.</span><span class="na">addDirection</span><span class="o">(</span><span class="n">currentState</span><span class="o">.</span><span class="na">direction</span><span class="o">);</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">getCharAtPoint</span><span class="o">(</span><span class="n">currentState</span><span class="o">.</span><span class="na">point</span><span class="o">)</span> <span class="o">==</span> <span class="sc">&#39;X&#39;</span><span class="o">)</span> <span class="o">{</span>
+				<span class="c1">// If we&#39;re sitting on a wall, then we need to remove the wall
+</span><span class="c1"></span>				<span class="n">updateCharAtPoint</span><span class="o">(</span><span class="n">currentState</span><span class="o">.</span><span class="na">point</span><span class="o">,</span><span class="sc">&#39; &#39;</span><span class="o">);</span>
+				<span class="n">currentState</span><span class="o">.</span><span class="na">wallChanges</span> <span class="o">=</span> <span class="n">currentState</span><span class="o">.</span><span class="na">wallChanges</span> <span class="o">+</span><span class="n">1</span><span class="o">;</span>
+			<span class="o">}</span>
+			<span class="n">moves</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">currentState</span><span class="o">.</span><span class="na">direction</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+			<span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;%s::%s&#34;</span><span class="o">,</span><span class="n">currentState</span><span class="o">.</span><span class="na">direction</span><span class="o">.</span><span class="na">toString</span><span class="o">(),</span><span class="n">currentState</span><span class="o">.</span><span class="na">getKey</span><span class="o">()));</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">moves</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span>
+            <span class="n">moves</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;DON&#39;T KNOW&#34;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">moves</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[])</span> <span class="o">{</span>
+        <span class="n">Scanner</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">in</span><span class="o">.</span><span class="na">hasNextLine</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">in</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="n">Board</span> <span class="n">board</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Board</span><span class="o">();</span>
+        <span class="n">board</span><span class="o">.</span><span class="na">grid</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="o">[</span><span class="n">width</span><span class="o">][</span><span class="n">height</span><span class="o">];</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">height</span><span class="o">;</span> <span class="n">y</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">String</span> <span class="n">row</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">row</span><span class="o">);</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">row</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">x</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">board</span><span class="o">.</span><span class="na">grid</span><span class="o">[</span><span class="n">x</span><span class="o">][</span><span class="n">y</span><span class="o">]</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+
+                <span class="c1">// Handle teleports
+</span><span class="c1"></span>                <span class="k">if</span><span class="o">(</span><span class="n">board</span><span class="o">.</span><span class="na">grid</span><span class="o">[</span><span class="n">x</span><span class="o">][</span><span class="n">y</span><span class="o">]</span> <span class="o">==</span> <span class="sc">&#39;T&#39;</span><span class="o">){</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">board</span><span class="o">.</span><span class="na">teleports</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+                        <span class="n">board</span><span class="o">.</span><span class="na">teleports</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="o">[</span><span class="n">2</span><span class="o">];</span>
+                        <span class="n">board</span><span class="o">.</span><span class="na">teleports</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="o">(</span><span class="n">x</span><span class="o">,</span><span class="n">y</span><span class="o">);</span>
+                    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                        <span class="n">board</span><span class="o">.</span><span class="na">teleports</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="o">(</span><span class="n">x</span><span class="o">,</span><span class="n">y</span><span class="o">);</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+                <span class="c1">// Get Bender start:
+</span><span class="c1"></span>                <span class="k">if</span> <span class="o">(</span> <span class="n">board</span><span class="o">.</span><span class="na">grid</span><span class="o">[</span><span class="n">x</span><span class="o">][</span><span class="n">y</span><span class="o">]</span> <span class="o">==</span> <span class="sc">&#39;@&#39;</span><span class="o">)</span>
+                    <span class="n">board</span><span class="o">.</span><span class="na">currentState</span><span class="o">.</span><span class="na">point</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="o">(</span><span class="n">x</span><span class="o">,</span><span class="n">y</span><span class="o">);</span>
+                
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">move</span> <span class="o">:</span> <span class="n">board</span><span class="o">.</span><span class="na">generateAnswer</span><span class="o">())</span> 
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">move</span><span class="o">);</span>
+            
+        
+        
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div>
+    
+  </section>
+</article>
+
+</div>
+      
+    </div>
+<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top w3-center">
+  <p>Copyright 2021 Micheal Arsenault</p>
+</footer>
+</body>
+</html>
