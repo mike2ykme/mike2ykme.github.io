@@ -6,20 +6,11 @@
     <description>Recent content in Categories on Mike&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Jan 2021 23:05:01 -0600</lastBuildDate><atom:link href="http://mike2ykme.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Coding challenges</title>
-      <link>http://mike2ykme.github.io/categories/coding-challenges/</link>
-      <pubDate>Tue, 26 Jan 2021 23:05:01 -0600</pubDate>
-      
-      <guid>http://mike2ykme.github.io/categories/coding-challenges/</guid>
-      <description></description>
-    </item>
-    
+    <lastBuildDate>Tue, 02 Mar 2021 20:12:10 -0600</lastBuildDate><atom:link href="http://mike2ykme.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Personal</title>
       <link>http://mike2ykme.github.io/categories/personal/</link>
-      <pubDate>Tue, 26 Jan 2021 23:05:01 -0600</pubDate>
+      <pubDate>Tue, 02 Mar 2021 20:12:10 -0600</pubDate>
       
       <guid>http://mike2ykme.github.io/categories/personal/</guid>
       <description></description>
@@ -28,9 +19,18 @@
     <item>
       <title>career</title>
       <link>http://mike2ykme.github.io/categories/career/</link>
-      <pubDate>Sun, 24 Jan 2021 16:02:48 -0600</pubDate>
+      <pubDate>Mon, 01 Mar 2021 18:44:24 -0600</pubDate>
       
       <guid>http://mike2ykme.github.io/categories/career/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Coding challenges</title>
+      <link>http://mike2ykme.github.io/categories/coding-challenges/</link>
+      <pubDate>Tue, 26 Jan 2021 23:05:01 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/categories/coding-challenges/</guid>
       <description></description>
     </item>
     

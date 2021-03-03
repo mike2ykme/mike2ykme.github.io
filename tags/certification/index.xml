@@ -6,7 +6,16 @@
     <description>Recent content in certification on Mike&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 Jan 2021 21:37:21 -0600</lastBuildDate><atom:link href="http://mike2ykme.github.io/tags/certification/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Mar 2021 18:44:24 -0600</lastBuildDate><atom:link href="http://mike2ykme.github.io/tags/certification/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Spring Certified</title>
+      <link>http://mike2ykme.github.io/posts/2021/03/spring-certified/</link>
+      <pubDate>Mon, 01 Mar 2021 18:44:24 -0600</pubDate>
+      
+      <guid>http://mike2ykme.github.io/posts/2021/03/spring-certified/</guid>
+      <description>&lt;p&gt;So I have been working on becoming Spring Certified for a couple months now, and it was quite a slog of learning and becoming prepared.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Getting Spring Certified</title>
       <link>http://mike2ykme.github.io/posts/2021/01/getting-spring-certified/</link>

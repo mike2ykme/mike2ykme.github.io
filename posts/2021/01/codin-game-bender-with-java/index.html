@@ -42,7 +42,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     </div>
 </div>
     
-    <p> By: <b>Micheal Arsenault</b> <img class="w3-circle" src="/images/me_cropped.jpg" alt="" width="48" height="48"></p><p>Posted: <b>January 26, 2021</b>| Modified: <b>February 28, 2021</b></p>
+    <p> By: <b>Micheal Arsenault</b> <img class="w3-circle" src="/images/me_cropped.jpg" alt="" width="48" height="48"></p><p>Posted: <b>January 26, 2021</b>| Modified: <b>March 2, 2021</b></p>
     <p>
       
       
@@ -77,6 +77,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <ul>
 <li>Challenge: <a href="https://www.codingame.com/training/medium/shadows-of-the-knight-episode-1/">https://www.codingame.com/training/medium/shadows-of-the-knight-episode-1/</a></li>
 </ul>
+<p>This solution is based on state machines. What I&rsquo;ve done here is look at the current state of the board, looked at what our next steps are supposed to be, and then performed the action. Additionally, since part of the challenge is to ensure we don&rsquo;t get stuck in a looping state we&rsquo;re tracking our history to prevent an infinite loop. To perform this history I&rsquo;m using a HashMap that keeps track of a list of previous points that are referenced by current board state.</p>
 <div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java">
 <span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
