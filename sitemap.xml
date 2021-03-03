@@ -1,205 +1,123 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>http://mike2ykme.github.io/posts/2021/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/categories/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/tags/go/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/tags/hosting/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2021/03/hosting-on-nearlyfreespeech.net/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/tags/java/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/categories/personal/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/tags/programming/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/tags/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/year/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/categories/career/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/tags/certification/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/tags/spring/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2021/03/spring-certified/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/tags/challenges/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2021/01/codin-game-bender-with-java/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/tags/coding/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/categories/coding-challenges/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/tags/learning/</loc>
     <lastmod>2021-03-02T22:25:36-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2021/01/codin-game-batman-with-java/</loc>
     <lastmod>2021-02-28T23:52:50-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/tags/book/</loc>
     <lastmod>2021-01-24T19:52:22-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/tags/concurrency/</loc>
     <lastmod>2021-01-24T19:52:22-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2021/01/java-concurrency-in-practice-ch3-part-2/</loc>
     <lastmod>2021-01-24T19:52:22-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2021/01/java-concurrency-in-practice-chapter-3-part-1/</loc>
     <lastmod>2021-01-24T19:52:22-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2021/01/getting-spring-certified/</loc>
     <lastmod>2021-01-05T22:00:45-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2021/01/java-concurrency-in-practice-chapter-2/</loc>
     <lastmod>2021-01-02T23:43:00-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2020/</loc>
     <lastmod>2021-01-05T22:00:45-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2020/12/java-concurrency-in-practice-reading-through-the-book/</loc>
     <lastmod>2020-12-27T22:32:01-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2020/12/getting-spring-certified-3/</loc>
     <lastmod>2021-01-05T22:00:45-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2020/12/spring-certification-container-dependency-and-ioc-2/</loc>
     <lastmod>2020-12-26T21:55:15-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2020/12/spring-certification-container-dependency-and-ioc/</loc>
     <lastmod>2020-12-26T21:55:15-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2020/12/getting-spring-certified/</loc>
     <lastmod>2020-12-23T22:46:05-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/opensource/</loc>
     <lastmod>2020-12-23T22:50:45-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/about/</loc>
     <lastmod>2020-12-23T00:47:18-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/</loc>
     <lastmod>2020-12-23T00:47:18-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2020/12/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2021/01/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/posts/2021/03/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/month/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://mike2ykme.github.io/series/</loc>
   </url>
-  
 </urlset>
